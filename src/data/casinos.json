@@ -27,7 +27,7 @@
   ],
   "casinos": [
     {"id": "bet365", "nombre": "bet365", "color": "#126E51", "licencias": {"caba": "www.bet365.bet.ar", "pba": "www.bet365.bet.ar"}},
-    {"id": "betano", "nombre": "Betano", "color": "#E85D04", "licencias": {"caba": "www.betano.bet.ar", "pba": "www.betano.bet.ar", "mza": "mza.betano.bet.ar"}},
+    {"id": "betano", "nombre": "Betano", "color": "#E85D04", "licencias": {"caba": "caba.betano.bet.ar", "pba": "www.betano.bet.ar", "mza": "mza.betano.bet.ar"}},
     {"id": "betfun", "nombre": "Betfun", "color": "#2A6F97", "licencias": {"caba": "betfun.bet.ar"}},
     {"id": "betsson", "nombre": "Betsson", "color": "#E36414", "licencias": {"caba": "www.betsson.bet.ar", "pba": "pba.betsson.bet.ar", "cba": "cba.betsson.bet.ar"}},
     {"id": "betwarrior", "nombre": "BetWarrior", "color": "#C1121F", "licencias": {"caba": "caba.betwarrior.bet.ar", "pba": "betwarrior.bet.ar", "mza": "mza.betwarrior.bet.ar", "chu": "betwarrior.bet.ar", "sal": "betwarrior.bet.ar", "neu": "betwarrior.bet.ar", "juj": "betwarrior.bet.ar"}},
