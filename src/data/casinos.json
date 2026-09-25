@@ -22,7 +22,7 @@
     {"id": "sc", "nombre": "Santa Cruz", "estado": "regulada", "regulador": "Lotería de Santa Cruz (LOAS)", "fuente": "https://loteriadesantacruz.gob.ar/", "ayuda": ""},
     {"id": "sfe", "nombre": "Santa Fe", "estado": "regulada", "regulador": "Lotería de Santa Fe", "fuente": "https://www.yogonet.com/latinoamerica/noticias/2026/06/17/109398-la-provincia-de-santa-fe-adjudico-cuatro-habilitaciones-oficiales-para-operar-plataformas-de-apuestas-online", "ayuda": ""},
     {"id": "sde", "nombre": "Santiago del Estero", "estado": "regulada", "regulador": "Caja Social de Santiago del Estero", "fuente": "https://www.yogonet.com/latinoamerica/noticias/2026/06/11/109309-bplay-anuncia-su-llegada-a-la-provincia-de-santiago-del-estero", "ayuda": ""},
-    {"id": "tdf", "nombre": "Tierra del Fuego", "estado": "sin-regulacion", "regulador": "Instituto Provincial de Regulación de Apuestas (IPRA)", "fuente": "https://criticasur.com.ar/nota/54584/tierra_del_fuego_es_la_unica_provincia_patagonica_donde_no_esta_permitido_el_juego_en_linea/", "ayuda": ""},
+    {"id": "tdf", "nombre": "Tierra del Fuego", "estado": "regulada", "regulador": "Instituto Provincial de Regulación de Apuestas (IPRA)", "fuente": "https://www.casinoclubonline.bet.ar/", "ayuda": ""},
     {"id": "tuc", "nombre": "Tucumán", "estado": "en-proceso", "regulador": "Caja Popular de Ahorros de Tucumán", "fuente": "https://www.yogonet.com/latinoamerica/noticias/2025/06/05/104420-la-caja-popular-de-ahorros-aclara-que-el-casino-de-tucuman-no-ofrece-apuestas-online-y-alerta-sobre-posibles-estafas", "ayuda": ""}
   ],
   "casinos": [
@@ -33,7 +33,7 @@
     {"id": "betwarrior", "nombre": "BetWarrior", "color": "#C1121F", "licencias": {"caba": "caba.betwarrior.bet.ar", "pba": "betwarrior.bet.ar", "mza": "mza.betwarrior.bet.ar", "chu": "betwarrior.bet.ar", "sal": "betwarrior.bet.ar", "neu": "betwarrior.bet.ar", "juj": "betwarrior.bet.ar"}},
     {"id": "bplay", "nombre": "bplay", "color": "#0B6E4F", "licencias": {"caba": "caba.bplay.bet.ar", "pba": "pba.bplay.bet.ar", "mza": "mendoza.bplay.bet.ar", "cba": "cordoba.bplay.bet.ar", "sfe": "santafe.bplay.bet.ar", "juj": "jujuy.bplay.bet.ar", "sde": "santiagodelestero.bplay.bet.ar", "lrj": "larioja.bplay.bet.ar"}},
     {"id": "casino-ba-online", "nombre": "Casino Buenos Aires Online", "color": "#8D0801", "licencias": {"caba": "casinobuenosairesonline.bet.ar"}},
-    {"id": "casino-club-online", "nombre": "Casino Club Online", "color": "#264653", "licencias": {"mza": "casinoclubonline.bet.ar", "mis": "casinoclubonline.bet.ar", "rn": "casinoclubonline.bet.ar", "chu": "casinoclubonline.bet.ar", "sc": "casinoclubonline.bet.ar", "lpa": "casinoclubonline.bet.ar"}},
+    {"id": "casino-club-online", "nombre": "Casino Club Online", "color": "#264653", "licencias": {"mza": "casinoclubonline.bet.ar", "mis": "casinoclubonline.bet.ar", "rn": "casinoclubonline.bet.ar", "chu": "casinoclubonline.bet.ar", "sc": "casinoclubonline.bet.ar", "lpa": "casinoclubonline.bet.ar", "tdf": "casinoclubonline.bet.ar"}},
     {"id": "codere", "nombre": "Codere", "color": "#5E8C31", "licencias": {"caba": "www.codere.bet.ar", "mza": "m.mdz.codere.bet.ar"}},
     {"id": "jugadon", "nombre": "Jugadón", "color": "#D62828", "licencias": {"caba": "caba.jugadon.bet.ar", "cba": "cordoba.jugadon.bet.ar", "lrj": "larioja.jugadon.bet.ar", "sl": "sanluis.jugadon.bet.ar", "sfe": "santafe.jugadon.bet.ar"}},
     {"id": "playcet", "nombre": "PlayCET", "color": "#0077B6", "licencias": {"cba": "playcet.bet.ar"}},
