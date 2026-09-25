@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <style>
+    .t { stroke: #101b1e; fill: #101b1e; }
+    @media (prefers-color-scheme: dark) { .t { stroke: #e8eeea; fill: #e8eeea; } }
+  </style>
+  <line class="t" x1="23" y1="4" x2="5" y2="27" stroke-width="2.6" stroke-linecap="round" />
+  <circle class="t" cx="8.5" cy="8.5" r="3.2" stroke="none" />
+  <circle cx="21.5" cy="21.5" r="6.6" fill="none" stroke="#0e6b50" stroke-width="3" stroke-dasharray="4.18 1" />
+  <circle cx="21.5" cy="21.5" r="2" fill="#b08a2e" />
+</svg>

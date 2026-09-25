@@ -1,0 +1,11 @@
+---
+// Isotipo: un signo de porcentaje cuyo círculo grande es una ficha de casino.
+interface Props { size?: number; class?: string }
+const { size = 28, class: clase } = Astro.props;
+---
+<svg class={clase} width={size} height={size} viewBox="0 0 32 32" role="img" aria-label="Casinofertas">
+  <line x1="23" y1="4" x2="5" y2="27" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" />
+  <circle cx="8.5" cy="8.5" r="3.2" fill="currentColor" />
+  <circle cx="21.5" cy="21.5" r="6.6" fill="none" stroke="var(--accent)" stroke-width="3" stroke-dasharray="4.18 1" />
+  <circle cx="21.5" cy="21.5" r="2" fill="var(--gold)" />
+</svg>

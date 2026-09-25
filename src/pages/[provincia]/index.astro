@@ -18,19 +18,29 @@ const habilitados = casinos.filter((c) => c.licencias[provincia.id]).length;
   title={`Promos de casinos online legales en ${provincia.nombre} | Casinofertas`}
   description={`Promociones vigentes de los ${habilitados} casinos online con licencia en ${provincia.nombre}.`}
 >
-  <section class="hero">
-    <h1>Promos de casinos legales en {provincia.nombre}</h1>
-    <div class="where">
-      <label for="prov">¿Dónde estás jugando?</label>
-      <select id="prov">
-        {provincias.map((p) => <option value={p.id} selected={p.id === provincia.id}>{p.nombre}</option>)}
-      </select>
+  <section class="page-head">
+    <p class="eyebrow">Promos de casinos legales</p>
+    <h1>{provincia.nombre}</h1>
+    <div class="meta">
+      <label>
+        <span class="sr">Cambiar de provincia: </span>
+        <select id="prov" aria-label="Cambiar de provincia">
+          {provincias.map((p) => <option value={p.id} selected={p.id === provincia.id}>{p.nombre}</option>)}
+        </select>
+      </label>
       {habilitados > 0 && provincia.regulador && (
-        <span class="note">
-          {habilitados} casinos con licencia de <a href={provincia.fuente} rel="noopener" target="_blank">{provincia.regulador}</a>
+        <span>
+          Licencias de <a href={provincia.fuente} rel="noopener" target="_blank">{provincia.regulador}</a>
         </span>
       )}
     </div>
+    {promos.length > 0 && (
+      <div class="stats">
+        <div class="stat"><b id="n-promos">{promos.length}</b><span>promos vigentes</span></div>
+        <div class="stat"><b>{habilitados}</b><span>casinos con licencia</span></div>
+        <div class="stat warn" id="stat-pronto" hidden><b id="n-pronto">0</b><span>vencen esta semana</span></div>
+      </div>
+    )}
   </section>
 
   {promos.length > 0 ? (
@@ -40,15 +50,16 @@ const habilitados = casinos.filter((c) => c.licencias[provincia.id]).length;
           <button class="pill" data-tipo="todas" aria-pressed="true">Todas</button>
           {tipos.map(([k, v]) => <button class="pill" data-tipo={k} aria-pressed="false">{v}</button>)}
         </div>
-        <span class="grow"></span>
-        <input id="q" type="search" placeholder="Buscar casino o promo" aria-label="Buscar" />
-        <select id="orden" aria-label="Ordenar">
-          <option value="vence">Vencen primero</option>
-          <option value="nuevas">Más nuevas</option>
-          <option value="casino">Por casino</option>
-        </select>
+        <div class="tools">
+          <input id="q" type="search" placeholder="Buscar casino o promo" aria-label="Buscar" />
+          <select id="orden" aria-label="Ordenar">
+            <option value="vence">Vencen primero</option>
+            <option value="nuevas">Más nuevas</option>
+            <option value="casino">Por casino</option>
+          </select>
+        </div>
       </div>
-      <div class="count" id="count">{promos.length} {promos.length === 1 ? "promo vigente" : "promos vigentes"}</div>
+      <p class="count" id="count">{promos.length} {promos.length === 1 ? "promo" : "promos"}</p>
       <div class="grid" id="grid">
         {promos.map((p) => <PromoCard promo={p} />)}
       </div>
@@ -80,9 +91,11 @@ const habilitados = casinos.filter((c) => c.licencias[provincia.id]).length;
       const dias = (d: string) => Math.round((new Date(`${d}T00:00:00`).getTime() - hoy.getTime()) / 864e5);
 
       // El sitio se reconstruye una vez por día; entre builds, ocultamos lo que venció y avisamos lo que está por vencer.
+      let pronto = 0;
       for (const c of cards) {
         const d = dias(c.dataset.hasta!);
         if (d < 0) c.remove();
+        if (d >= 0 && d <= 7) pronto++;
         const f = c.querySelector<HTMLElement>(".vence");
         if (f && d >= 0 && d <= 7) {
           f.classList.add("soon");
@@ -90,6 +103,11 @@ const habilitados = casinos.filter((c) => c.licencias[provincia.id]).length;
         }
       }
       const vivas = cards.filter((c) => c.isConnected);
+      document.querySelector("#n-promos")!.textContent = String(vivas.length);
+      if (pronto > 0) {
+        document.querySelector("#n-pronto")!.textContent = String(pronto);
+        document.querySelector<HTMLElement>("#stat-pronto")!.hidden = false;
+      }
       const estado = { tipo: "todas", q: "", orden: "vence" };
       const count = document.querySelector("#count")!;
       const vacio = document.querySelector<HTMLElement>("#vacio")!;
@@ -107,7 +125,7 @@ const habilitados = casinos.filter((c) => c.licencias[provincia.id]).length;
           if (ok) n++;
           grid.append(c);
         }
-        count.textContent = `${n} ${n === 1 ? "promo vigente" : "promos vigentes"}`;
+        count.textContent = `${n} ${n === 1 ? "promo" : "promos"}`;
         vacio.hidden = n > 0;
       };
 

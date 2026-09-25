@@ -8,40 +8,102 @@ const resumen = provincias.map((p) => ({
   casinos: casinos.filter((c) => c.licencias[p.id]).length,
   promos: promos.filter((x) => x.provincia.id === p.id).length,
 }));
+const conCasinos = resumen.filter((p) => p.estado === "regulada" && p.casinos > 0);
+const enVerificacion = resumen.filter((p) => p.estado !== "sin-regulacion" && p.casinos === 0);
+const sinRegulacion = resumen.filter((p) => p.estado === "sin-regulacion");
 ---
 <Base
   title="Casinofertas: promos de casinos online legales en Argentina"
   description="Todas las promociones de los casinos online con licencia provincial en Argentina, filtradas por provincia."
 >
   <section class="hero">
-    <h1>Todas las promos de casinos legales, en tu provincia</h1>
+    <p class="eyebrow">{casinos.length} casinos con licencia · {promos.length} promos vigentes</p>
+    <h1>Las promos de los casinos <em>legales</em>, en un solo lugar</h1>
     <p>
-      Solo sitios .bet.ar con licencia provincial. Cada casino es legal únicamente en las provincias que lo habilitaron,
-      así que elegí dónde estás jugando.
+      Cada casino online es legal solo en las provincias que lo habilitaron. Elegí dónde estás jugando y te mostramos
+      lo que podés aprovechar ahí.
     </p>
+    <form class="picker" action="/" method="get" id="picker">
+      <label class="eyebrow" for="prov" style="flex-basis:100%">¿Dónde estás jugando?</label>
+      <select id="prov" name="prov">
+        {provincias.map((p) => <option value={p.id}>{p.nombre}</option>)}
+      </select>
+      <button class="btn" type="submit">Ver promos</button>
+    </form>
   </section>
-  <div class="provs">
-    {resumen.map((p) => (
-      <a class="prov" href={`/${p.id}/`} data-prov={p.id}>
-        <strong>{p.nombre}</strong>
-        <span>
-          {p.estado === "sin-regulacion"
-            ? "Sin juego online regulado"
-            : p.estado === "en-proceso"
-              ? "Regulación en marcha"
-              : p.casinos === 0
-                ? "Casinos en verificación"
-                : `${p.promos} ${p.promos === 1 ? "promo vigente" : "promos vigentes"} · ${p.casinos} casinos`}
-        </span>
-      </a>
-    ))}
-  </div>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Provincias con casinos habilitados</h2>
+      <span class="eyebrow">Promos vigentes</span>
+    </div>
+    <div class="provs">
+      {conCasinos.map((p) => (
+        <a class="prov" href={`/${p.id}/`} data-prov={p.id}>
+          <span><strong>{p.nombre}</strong><small>{p.casinos} casinos</small></span>
+          <span class={p.promos ? "n" : "n cero"}>{p.promos}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  {enVerificacion.length > 0 && (
+    <section class="section">
+      <div class="section-head">
+        <h2>En verificación</h2>
+        <span class="eyebrow">Estamos revisando sus listas oficiales</span>
+      </div>
+      <div class="chips">
+        {enVerificacion.map((p) => <a class="chip" href={`/${p.id}/`} data-prov={p.id}>{p.nombre}</a>)}
+      </div>
+    </section>
+  )}
+
+  {sinRegulacion.length > 0 && (
+    <section class="section">
+      <div class="section-head">
+        <h2>Sin juego online regulado</h2>
+      </div>
+      <p class="lead" style="margin:0">
+        {sinRegulacion.map((p) => p.nombre).join(", ")} todavía no habilitaron casinos online. Cualquier sitio que
+        ofrezca jugar desde ahí opera sin licencia.
+      </p>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="facts3">
+      <div>
+        <p class="eyebrow">Solo .bet.ar</p>
+        <h3>Legales de verdad</h3>
+        <p>Los casinos con licencia argentina usan dominios <code>.bet.ar</code>. No listamos sitios con licencias de otros países.</p>
+      </div>
+      <div>
+        <p class="eyebrow">Por provincia</p>
+        <h3>Lo que te corresponde</h3>
+        <p>Cada promo aparece solo en la provincia donde el casino tiene licencia, con el dominio que te toca usar.</p>
+      </div>
+      <div>
+        <p class="eyebrow">Con fecha</p>
+        <h3>Siempre al día</h3>
+        <p>Cada promo muestra cuándo vence y cuándo la revisamos. Las vencidas desaparecen solas.</p>
+      </div>
+    </div>
+  </section>
+
   <script>
-    // Resalta la última provincia visitada.
+    const form = document.querySelector<HTMLFormElement>("#picker")!;
+    const sel = document.querySelector<HTMLSelectElement>("#prov")!;
     try {
       const prov = localStorage.getItem("prov");
-      const el = prov && document.querySelector<HTMLElement>(`[data-prov="${prov}"]`);
-      if (el) { el.style.borderColor = "var(--accent)"; el.parentElement?.prepend(el); }
+      if (prov) {
+        sel.value = prov;
+        document.querySelectorAll(`[data-prov="${prov}"]`).forEach((el) => el.classList.add("mine"));
+      }
     } catch {}
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      location.href = `/${sel.value}/`;
+    });
   </script>
 </Base>

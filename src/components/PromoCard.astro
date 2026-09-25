@@ -18,7 +18,7 @@ const buscar = `${p.casino.nombre} ${p.titulo} ${p.condiciones}`.toLowerCase();
   data-buscar={buscar}
 >
   <div class="card-top">
-    <span class="mono-logo" style={`background:${p.casino.color}`} aria-hidden="true">{iniciales}</span>
+    <span class="ficha" style={`--c:${p.casino.color}`} aria-hidden="true">{iniciales}</span>
     <div>
       <div class="brand">{p.casino.nombre}</div>
       <div class="domain">{p.dominio}</div>
@@ -26,11 +26,11 @@ const buscar = `${p.casino.nombre} ${p.titulo} ${p.condiciones}`.toLowerCase();
     <span class="type">{TIPOS[p.tipo]}</span>
   </div>
   <div>
+    {p.monto && <p class="amount">{p.monto}</p>}
     <h3>{p.titulo}</h3>
-    {p.monto && <div class="amount">{p.monto}</div>}
   </div>
   <p class="cond">{p.condiciones}</p>
-  <div style="display:grid;gap:10px">
+  <div style="display:grid;gap:12px">
     <div class="facts">
       {p.hasta
         ? <span class="fact vence" data-fecha={p.hasta}>Hasta el {fecha(p.hasta)}</span>
