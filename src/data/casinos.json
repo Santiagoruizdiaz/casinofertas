@@ -13,7 +13,7 @@
     { "id": "lpa", "nombre": "La Pampa", "estado": "regulada", "regulador": "", "fuente": "", "ayuda": "" },
     { "id": "lrj", "nombre": "La Rioja", "estado": "regulada", "regulador": "Administración de Juegos de Azar de La Rioja (AJALAR)", "fuente": "https://ajalar.com.ar/sitio/lista-de-plataformas-autorizadas/", "ayuda": "" },
     { "id": "mza", "nombre": "Mendoza", "estado": "regulada", "regulador": "Instituto Provincial de Juegos y Casinos", "fuente": "https://www.ipjyc.gob.ar/JEL/", "ayuda": "" },
-    { "id": "mis", "nombre": "Misiones", "estado": "regulada", "regulador": "", "fuente": "", "ayuda": "" },
+    { "id": "mis", "nombre": "Misiones", "estado": "regulada", "regulador": "Instituto Provincial de Lotería y Casinos (IPLyC)", "fuente": "https://www.loteriademisiones.com.ar/portal/juegos/", "ayuda": "" },
     { "id": "neu", "nombre": "Neuquén", "estado": "regulada", "regulador": "", "fuente": "", "ayuda": "" },
     { "id": "rn", "nombre": "Río Negro", "estado": "regulada", "regulador": "", "fuente": "", "ayuda": "" },
     { "id": "sal", "nombre": "Salta", "estado": "sin-regulacion", "regulador": "", "fuente": "", "ayuda": "" },
@@ -33,7 +33,7 @@
     { "id": "betwarrior", "nombre": "BetWarrior", "color": "#C1121F", "licencias": { "caba": "caba.betwarrior.bet.ar", "pba": "betwarrior.bet.ar", "mza": "mza.betwarrior.bet.ar" } },
     { "id": "bplay", "nombre": "bplay", "color": "#0B6E4F", "licencias": { "caba": "caba.bplay.bet.ar", "pba": "pba.bplay.bet.ar", "mza": "mendoza.bplay.bet.ar" } },
     { "id": "casino-ba-online", "nombre": "Casino Buenos Aires Online", "color": "#8D0801", "licencias": { "caba": "casinobuenosairesonline.bet.ar" } },
-    { "id": "casino-club-online", "nombre": "Casino Club Online", "color": "#264653", "licencias": { "mza": "casinoclubonline.bet.ar" } },
+    { "id": "casino-club-online", "nombre": "Casino Club Online", "color": "#264653", "licencias": { "mza": "casinoclubonline.bet.ar", "mis": "casinoclubonline.bet.ar" } },
     { "id": "codere", "nombre": "Codere", "color": "#5E8C31", "licencias": { "caba": "www.codere.bet.ar", "mza": "m.mdz.codere.bet.ar" } },
     { "id": "jugadon", "nombre": "Jugadón", "color": "#D62828", "licencias": { "caba": "caba.jugadon.bet.ar", "cba": "cordoba.jugadon.bet.ar", "lrj": "jugadon.bet.ar" } },
     { "id": "playcet", "nombre": "PlayCET", "color": "#0077B6", "licencias": { "cba": "playcet.bet.ar" } },
@@ -45,6 +45,9 @@
     { "id": "playbet", "nombre": "PlayBet", "color": "#F77F00", "licencias": { "lrj": "play.bet.ar" } },
     { "id": "arbet", "nombre": "ARBET", "color": "#3D5A80", "licencias": { "lrj": "www.arbet.bet.ar" } },
     { "id": "mi-tesoro", "nombre": "Mi Tesoro", "color": "#B08900", "licencias": { "lrj": "mitesoro.bet.ar" } },
+    { "id": "guazubet", "nombre": "GuazuBet", "color": "#1F7A3A", "licencias": { "mis": "guazubet.bet.ar" } },
+    { "id": "tucanwin", "nombre": "TucanWin", "color": "#E07A00", "licencias": { "mis": "tucanwin.bet.ar" } },
+    { "id": "divergana", "nombre": "Divergana", "color": "#5A189A", "licencias": { "mis": "divergana.bet.ar" } },
     { "id": "easybet", "nombre": "Easy Bet", "color": "#1B998B", "licencias": { "lrj": "larioja.easybet.bet.ar" } }
   ]
 }
