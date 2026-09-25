@@ -17,6 +17,7 @@ export const TIPOS = {
   giros: "Giros gratis",
   torneo: "Torneo o sorteo",
   deportes: "Deportes",
+  especial: "Bonos especiales",
 } as const;
 export type Tipo = keyof typeof TIPOS;
 
