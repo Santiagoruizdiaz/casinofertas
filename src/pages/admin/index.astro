@@ -2,7 +2,7 @@
 // Panel para editar las ofertas. Usa Decap CMS: cada cambio que se guarda es un commit en
 // src/data/promos/ sobre main, y Netlify vuelve a publicar el sitio solo.
 // El login es con GitHub a través del proveedor OAuth de Netlify (ver README).
-import { TIPOS, casinos, provincias } from "../../lib/datos";
+import { TIPOS, VERTICALES, casinos, provincias } from "../../lib/datos";
 
 const opciones = (lista: { id: string; nombre: string }[]) =>
   lista.map((x) => ({ label: x.nombre, value: x.id })).sort((a, b) => a.label.localeCompare(b.label, "es"));
@@ -62,6 +62,7 @@ const config = {
         { label: "Sin revisar (no se muestran)", field: "verificada", pattern: "^$" },
         { label: "Revisadas", field: "verificada", pattern: "." },
         ...Object.entries(TIPOS).map(([value, label]) => ({ label, field: "tipo", pattern: `^${value}$` })),
+        ...Object.entries(VERTICALES).map(([value, label]) => ({ label, field: "vertical", pattern: `^${value}$` })),
       ],
       view_groups: [
         { label: "Casino", field: "casino" },
@@ -83,6 +84,14 @@ const config = {
           widget: "select",
           options: Object.entries(TIPOS).map(([value, label]) => ({ label, value })),
           default: "bienvenida",
+        },
+        {
+          label: "Casino o deportes",
+          name: "vertical",
+          widget: "select",
+          options: Object.entries(VERTICALES).map(([value, label]) => ({ label, value })),
+          default: "casino",
+          hint: "Para qué sirve el bono. \"Casino y deportes\" aparece en los dos filtros de la web.",
         },
         { label: "Título", name: "titulo", widget: "string", hint: "Lo que se lee grande en la tarjeta." },
         { label: "Monto", name: "monto", widget: "string", required: false, hint: "Texto libre, por ejemplo: Hasta $10.000" },

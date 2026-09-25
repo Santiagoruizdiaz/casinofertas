@@ -32,6 +32,7 @@ Abrí `http://localhost:4321/admin/`: el panel usa los archivos locales en vez d
 | `casino` | sí | `bplay` | El `id` del casino en `casinos.json`. |
 | `provincia` | sí | `pba` | Código de la provincia en `casinos.json` (por ejemplo `caba`, `pba`, `mza`). El casino tiene que tener licencia ahí. |
 | `tipo` | sí | `cashback` | `bienvenida`, `deposito`, `cashback`, `giros`, `torneo`, `deportes` o `especial` (cumpleaños y otros bonos puntuales). |
+| `vertical` | no | `casino` | `casino`, `deportes` o `ambos`. Define en qué filtro de la web (Casino / Deportes) aparece; `ambos` aparece en los dos. Si falta, se toma `ambos`. |
 | `titulo` | sí | `Viernes de cashback` | Lo que se lee grande en la tarjeta. |
 | `monto` | no | `Hasta $10.000` | Texto libre. |
 | `condiciones` | sí | `Apostá $10.000 el viernes…` | Una o dos frases. |
