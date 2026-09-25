@@ -1,0 +1,46 @@
+---
+import Base from "../../layouts/Base.astro";
+import { cargarPromos, casinos, provincias } from "../../lib/datos";
+
+const promos = await cargarPromos();
+const filas = [...casinos]
+  .sort((a, b) => a.nombre.localeCompare(b.nombre))
+  .map((c) => ({
+    ...c,
+    provs: provincias.filter((p) => c.licencias[p.id]),
+    activas: promos.filter((p) => p.casino.id === c.id).length,
+  }));
+---
+<Base
+  title="Casinos online con licencia en Argentina | Casinofertas"
+  description="Qué casinos online tienen licencia en cada provincia argentina y con qué dominio .bet.ar operan."
+  seccion="casinos"
+>
+  <h2>Casinos con licencia por provincia</h2>
+  <p class="lead">
+    Un casino es legal solo en las provincias que lo habilitaron, y cada una le asigna su propio dominio .bet.ar.
+    Los datos salen de las listas oficiales de cada regulador.
+  </p>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Casino</th><th>Dónde es legal</th><th>Promos activas</th></tr></thead>
+      <tbody>
+        {filas.map((c) => (
+          <tr>
+            <td><strong>{c.nombre}</strong></td>
+            <td>
+              {c.provs.map((p, i) => (
+                <>{i > 0 && <br />}{p.nombre}: <code>{c.licencias[p.id]}</code></>
+              ))}
+            </td>
+            <td style="font-variant-numeric:tabular-nums">{c.activas}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <h2>Fuentes oficiales</h2>
+  <ul>
+    {provincias.map((p) => <li><a href={p.fuente} rel="noopener" target="_blank">{p.regulador}</a> ({p.nombre})</li>)}
+  </ul>
+</Base>

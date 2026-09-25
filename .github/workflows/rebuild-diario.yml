@@ -1,0 +1,19 @@
+name: Rebuild diario
+
+# Vuelve a publicar el sitio todos los días a las 6:00 (hora argentina) para que tome
+# los cambios de la planilla y saque las promos vencidas.
+on:
+  schedule:
+    - cron: "0 9 * * *"
+  workflow_dispatch:
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Disparar build en Netlify
+        env:
+          BUILD_HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}
+        run: |
+          if [ -z "$BUILD_HOOK" ]; then echo "Falta el secret NETLIFY_BUILD_HOOK"; exit 1; fi
+          curl -fsS -X POST -d '{}' "$BUILD_HOOK"

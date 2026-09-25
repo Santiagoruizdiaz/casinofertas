@@ -1,0 +1,29 @@
+---
+import Base from "../../layouts/Base.astro";
+import { provincias } from "../../lib/datos";
+const conAyuda = provincias.filter((p) => p.ayuda);
+---
+<Base
+  title="Juego responsable | Casinofertas"
+  description="Señales de alerta y dónde pedir ayuda por juego compulsivo en Argentina."
+  seccion="juego"
+>
+  <h2>Juego responsable</h2>
+  <p class="lead">
+    Las promociones son para mayores de 18. Si el juego dejó de ser un entretenimiento, pedí ayuda: es gratuita y
+    confidencial.
+  </p>
+  <ul>
+    <li>Ponete un límite de dinero y de tiempo antes de empezar, y respetalo.</li>
+    <li>No juegues para recuperar lo que perdiste.</li>
+    <li>Todos los casinos .bet.ar te permiten fijar límites de depósito o autoexcluirte desde tu cuenta.</li>
+  </ul>
+  {conAyuda.length > 0 && (
+    <>
+      <h2>Líneas de ayuda</h2>
+      <ul>
+        {conAyuda.map((p) => <li>{p.nombre}: <strong>{p.ayuda}</strong></li>)}
+      </ul>
+    </>
+  )}
+</Base>
