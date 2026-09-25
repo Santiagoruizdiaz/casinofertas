@@ -31,7 +31,7 @@ Abrí `http://localhost:4321/admin/`: el panel usa los archivos locales en vez d
 | `id` | sí | `bplay-cashback-pba` | Es el nombre del archivo. El panel lo arma solo con casino, título y provincia. |
 | `casino` | sí | `bplay` | El `id` del casino en `casinos.json`. |
 | `provincia` | sí | `pba` | Código de la provincia en `casinos.json` (por ejemplo `caba`, `pba`, `mza`). El casino tiene que tener licencia ahí. |
-| `tipo` | sí | `cashback` | `bienvenida`, `deposito`, `cashback`, `giros`, `torneo` o `deportes`. |
+| `tipo` | sí | `cashback` | `bienvenida`, `deposito`, `cashback`, `giros`, `torneo`, `deportes` o `especial` (cumpleaños y otros bonos puntuales). |
 | `titulo` | sí | `Viernes de cashback` | Lo que se lee grande en la tarjeta. |
 | `monto` | no | `Hasta $10.000` | Texto libre. |
 | `condiciones` | sí | `Apostá $10.000 el viernes…` | Una o dos frases. |
@@ -54,7 +54,7 @@ Si una oferta tiene un error (casino que no existe, casino sin licencia en esa p
 `src/data/casinos.json` tiene las 24 jurisdicciones (23 provincias más CABA) y cada casino con su dominio `.bet.ar` por provincia.
 
 - Licencias verificadas contra listas oficiales o comunicados del regulador en todas las provincias con juego online. Donde no hay lista pública (Córdoba, Santa Fe, Jujuy, Santiago del Estero, Chaco, Formosa, Corrientes, Neuquén), la fuente es la prensa o el selector de provincias de la propia marca.
-- Tierra del Fuego no tiene juego online regulado (`"estado": "sin-regulacion"`); San Juan y Tucumán están en proceso (`"en-proceso"`).
+- San Juan y Tucumán están en proceso (`"en-proceso"`).
 
 ## Desarrollo
 
