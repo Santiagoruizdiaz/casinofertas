@@ -1,0 +1,155 @@
+---
+// Panel para editar las ofertas. Usa Decap CMS: cada cambio que se guarda es un commit en
+// src/data/promos/ sobre main, y Netlify vuelve a publicar el sitio solo.
+// El login es con GitHub a través del proveedor OAuth de Netlify (ver README).
+import { TIPOS, casinos, provincias } from "../../lib/datos";
+
+const opciones = (lista: { id: string; nombre: string }[]) =>
+  lista.map((x) => ({ label: x.nombre, value: x.id })).sort((a, b) => a.label.localeCompare(b.label, "es"));
+
+const fecha = (label: string, extra: Record<string, unknown>) => ({
+  label,
+  widget: "datetime",
+  format: "YYYY-MM-DD",
+  date_format: "DD/MM/YYYY",
+  time_format: false,
+  picker_utc: true,
+  ...extra,
+});
+
+const config = {
+  load_config_file: false,
+  locale: "es",
+  local_backend: true,
+  backend: {
+    name: "github",
+    repo: "Santiagoruizdiaz/casinofertas",
+    branch: "main",
+    base_url: "https://api.netlify.com",
+    site_domain: "benevolent-meringue-c9fd77.netlify.app",
+    commit_messages: {
+      create: "Agrega la oferta {{slug}}",
+      update: "Edita la oferta {{slug}}",
+      delete: "Borra la oferta {{slug}}",
+      uploadMedia: "Sube {{path}}",
+      deleteMedia: "Borra {{path}}",
+    },
+  },
+  site_url: Astro.site?.href,
+  logo_url: "/favicon.svg",
+  media_folder: "public/img/subidas",
+  public_folder: "/img/subidas",
+  collections: [
+    {
+      name: "promos",
+      label: "Ofertas",
+      label_singular: "oferta",
+      description: "Las ofertas sin fecha de revisión no se muestran en el sitio. Cada cambio tarda un par de minutos en publicarse.",
+      folder: "src/data/promos",
+      extension: "json",
+      format: "json-ordenado",
+      create: true,
+      delete: true,
+      slug: "{{fields.casino}}-{{slug}}-{{fields.provincia}}",
+      identifier_field: "titulo",
+      summary: "{{titulo}} · {{casino}} · {{provincia}}",
+      sortable_fields: ["titulo", "casino", "provincia", "desde", "verificada"],
+      view_filters: [
+        { label: "Sin revisar (no se muestran)", field: "verificada", pattern: "^$" },
+        { label: "Revisadas", field: "verificada", pattern: "." },
+        ...Object.entries(TIPOS).map(([value, label]) => ({ label, field: "tipo", pattern: `^${value}$` })),
+      ],
+      view_groups: [
+        { label: "Casino", field: "casino" },
+        { label: "Provincia", field: "provincia" },
+      ],
+      editor: { preview: false },
+      fields: [
+        { label: "Casino", name: "casino", widget: "select", options: opciones(casinos) },
+        {
+          label: "Provincia",
+          name: "provincia",
+          widget: "select",
+          options: opciones(provincias),
+          hint: "El casino tiene que tener licencia en esta provincia.",
+        },
+        {
+          label: "Tipo",
+          name: "tipo",
+          widget: "select",
+          options: Object.entries(TIPOS).map(([value, label]) => ({ label, value })),
+          default: "bienvenida",
+        },
+        { label: "Título", name: "titulo", widget: "string", hint: "Lo que se lee grande en la tarjeta." },
+        { label: "Monto", name: "monto", widget: "string", required: false, hint: "Texto libre, por ejemplo: Hasta $10.000" },
+        { label: "Condiciones", name: "condiciones", widget: "text", hint: "Una o dos frases." },
+        {
+          label: "Rollover",
+          name: "rollover",
+          widget: "string",
+          required: false,
+          hint: "Requisito de apuesta, por ejemplo x35. Poné x0 si no tiene; dejalo vacío si no se sabe.",
+        },
+        { name: "desde", ...fecha("Desde", { default: "{{now}}" }) },
+        { name: "hasta", ...fecha("Hasta", { required: false, default: "", hint: "Pasada esta fecha, la oferta se oculta sola." }) },
+        {
+          label: "Link",
+          name: "link",
+          widget: "string",
+          required: false,
+          pattern: ["^$|^https://[^/\\s]+\\.bet\\.ar(/\\S*)?$", "Tiene que ser un link https de un sitio .bet.ar"],
+          hint: "Si queda vacío, se usa el dominio del casino en esa provincia.",
+        },
+        {
+          name: "verificada",
+          ...fecha("Revisada el", {
+            required: false,
+            default: "",
+            hint: "Última vez que la revisaste en el sitio del casino. Si queda vacía, la oferta no se muestra.",
+          }),
+        },
+      ],
+    },
+  ],
+};
+
+// Para avisar antes de guardar si el casino no tiene licencia en la provincia elegida.
+const licencias = Object.fromEntries(casinos.map((c) => [c.id, { nombre: c.nombre, provincias: Object.keys(c.licencias) }]));
+const nombresProvincias = Object.fromEntries(provincias.map((p) => [p.id, p.nombre]));
+---
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Panel · Casinofertas</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <script is:inline>window.CMS_MANUAL_INIT = true;</script>
+    <script is:inline src="https://cdn.jsdelivr.net/npm/decap-cms@3.16.3/dist/decap-cms.js"></script>
+    <script is:inline define:vars={{ config, licencias, nombresProvincias }}>
+      CMS.registerEventListener({
+        name: "preSave",
+        handler: ({ entry }) => {
+          const datos = entry.get("data");
+          const casino = licencias[datos.get("casino")];
+          const provincia = datos.get("provincia");
+          if (casino && !casino.provincias.includes(provincia)) {
+            const donde = casino.provincias.map((p) => nombresProvincias[p]).join(", ");
+            throw new Error(`${casino.nombre} no tiene licencia en ${nombresProvincias[provincia]}. Tiene en: ${donde}.`);
+          }
+          return datos;
+        },
+      });
+      // JSON con los campos siempre en el mismo orden y todos presentes, para que los diffs sean limpios.
+      CMS.registerCustomFormat("json-ordenado", "json", {
+        fromFile: (texto) => JSON.parse(texto),
+        toFile: (datos, orden) =>
+          JSON.stringify(Object.fromEntries(orden.map((campo) => [campo, datos[campo] ?? ""])), null, 2) + "\n",
+      });
+      CMS.init({ config });
+    </script>
+  </body>
+</html>

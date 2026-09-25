@@ -2,15 +2,33 @@
 
 Promociones de los casinos online legales de Argentina, filtradas por provincia. Solo lista sitios `.bet.ar` con licencia provincial.
 
-Sitio estático hecho con [Astro](https://astro.build). Las promos se cargan en una planilla de Google; las provincias, los casinos y sus licencias viven en `src/data/casinos.json`.
+Sitio estático hecho con [Astro](https://astro.build). Las promos se editan desde el panel en `/admin` y se guardan en `src/data/promos/`; las provincias, los casinos y sus licencias viven en `src/data/casinos.json`.
 
-## Cómo cargar promos
+## Panel de ofertas (`/admin`)
 
-Una fila por promo en la planilla, con estas columnas (con estos nombres en la primera fila):
+En `/admin/` se entra con la cuenta de GitHub (solo pueden quienes tienen permiso de escritura en este repo). Desde ahí se agregan, editan y borran ofertas. Cada cambio guardado es un commit en `main` y Netlify vuelve a publicar el sitio solo en un par de minutos.
 
-| Columna | Obligatoria | Ejemplo | Notas |
+El panel es [Decap CMS](https://decapcms.org). Cada oferta es un archivo JSON en `src/data/promos/`, y el nombre del archivo es su `id`. Antes de guardar, el panel avisa si el casino no tiene licencia en la provincia elegida.
+
+### Activar el login (una sola vez)
+
+1. En GitHub: Settings > Developer settings > OAuth Apps > New OAuth App. *Homepage URL*: `https://benevolent-meringue-c9fd77.netlify.app`. *Authorization callback URL*: `https://api.netlify.com/auth/done`. Guardá el *Client ID* y generá un *Client secret*.
+2. En Netlify: Project configuration > Access & security > OAuth > Install provider > GitHub, y pegá los dos valores.
+
+### Probarlo en la compu
+
+```sh
+npm run dev          # en una terminal
+npx decap-server     # en otra
+```
+
+Abrí `http://localhost:4321/admin/`: el panel usa los archivos locales en vez de GitHub.
+
+## Campos de cada oferta
+
+| Campo | Obligatorio | Ejemplo | Notas |
 | --- | --- | --- | --- |
-| `id` | sí | `bplay-cashback-pba` | Único. Casino, promo y provincia, sin espacios. |
+| `id` | sí | `bplay-cashback-pba` | Es el nombre del archivo. El panel lo arma solo con casino, título y provincia. |
 | `casino` | sí | `bplay` | El `id` del casino en `casinos.json`. |
 | `provincia` | sí | `pba` | Código de la provincia en `casinos.json` (por ejemplo `caba`, `pba`, `mza`). El casino tiene que tener licencia ahí. |
 | `tipo` | sí | `cashback` | `bienvenida`, `deposito`, `cashback`, `giros`, `torneo` o `deportes`. |
@@ -21,21 +39,13 @@ Una fila por promo en la planilla, con estas columnas (con estos nombres en la p
 | `desde` | sí | `01/06/2026` | Fecha de inicio. Acepta `01/06/2026` o `2026-06-01`. |
 | `hasta` | no | `01/06/2027` | Vencimiento. Pasada la fecha, la promo se oculta sola. |
 | `link` | no | `https://pba.bplay.bet.ar/promociones` | Tiene que ser `.bet.ar`. Si falta, se usa el dominio del casino. |
-| `verificada` | sí | `24/09/2026` | Última vez que la revisaste. Se muestra en la tarjeta. |
+| `verificada` | sí | `2026-09-24` | Última vez que la revisaste. Se muestra en la tarjeta. Si está vacía, la oferta no aparece en el sitio. |
 
-Hay un ejemplo completo en `src/data/promos-ejemplo.csv`: se puede importar en Google Sheets (Archivo > Importar) para arrancar.
-
-Si una fila tiene un error (casino que no existe, casino sin licencia en esa provincia, fecha mal escrita), el sitio la saltea y el log del build dice qué fila y por qué.
-
-## Conectar la planilla
-
-1. En Google Sheets: Archivo > Compartir > Publicar en la web > elegí la hoja > formato CSV > Publicar. Copiá el link.
-2. En Netlify: Site configuration > Environment variables > `PROMOS_CSV_URL` = ese link.
-3. Sin esa variable, el sitio usa `src/data/promos-ejemplo.csv`.
+Si una oferta tiene un error (casino que no existe, casino sin licencia en esa provincia, fecha mal escrita), el sitio la saltea y el log del build dice cuál y por qué.
 
 ## Actualización
 
-- El sitio se vuelve a publicar todos los días a las 6:00 (`.github/workflows/rebuild-diario.yml`). Necesita un *build hook* de Netlify guardado como secret `NETLIFY_BUILD_HOOK` en GitHub.
+- El sitio se vuelve a publicar todos los días a las 6:00, para sacar las promos vencidas (`.github/workflows/rebuild-diario.yml`). Necesita un *build hook* de Netlify guardado como secret `NETLIFY_BUILD_HOOK` en GitHub.
 - Para publicar al instante: Netlify > Deploys > Trigger deploy, o GitHub > Actions > Rebuild diario > Run workflow.
 - Entre publicaciones, la página oculta sola las promos que vencieron y marca las que vencen en los próximos 7 días.
 

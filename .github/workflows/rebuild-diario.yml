@@ -1,7 +1,6 @@
 name: Rebuild diario
 
-# Vuelve a publicar el sitio todos los días a las 6:00 (hora argentina) para que tome
-# los cambios de la planilla y saque las promos vencidas.
+# Vuelve a publicar el sitio todos los días a las 6:00 (hora argentina) para sacar las promos vencidas.
 on:
   schedule:
     - cron: "0 9 * * *"

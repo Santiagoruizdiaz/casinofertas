@@ -1,6 +1,4 @@
-import Papa from "papaparse";
 import data from "../data/casinos.json";
-import ejemplo from "../data/promos-ejemplo.csv?raw";
 
 export type Provincia = (typeof data.provincias)[number];
 export type Casino = {
@@ -17,6 +15,7 @@ export const TIPOS = {
   giros: "Giros gratis",
   torneo: "Torneo o sorteo",
   deportes: "Deportes",
+  especial: "Bonos especiales",
 } as const;
 export type Tipo = keyof typeof TIPOS;
 
@@ -49,20 +48,14 @@ function normalizarFecha(v: string): string {
 }
 const hoy = () => new Date().toISOString().slice(0, 10);
 
-async function leerCsv(): Promise<string> {
-  const url = import.meta.env.PROMOS_CSV_URL ?? process.env.PROMOS_CSV_URL;
-  if (url) {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`No pude leer la planilla (${res.status}): ${url}`);
-    return res.text();
-  }
-  return ejemplo;
-}
+// Una oferta por archivo en src/data/promos/. El nombre del archivo es su id.
+// El panel de /admin crea, edita y borra estos archivos con un commit en GitHub.
+const archivos = import.meta.glob<Record<string, string>>("../data/promos/*.json", { eager: true, import: "default" });
 
-// Convierte una fila de la planilla en una Promo, o devuelve el motivo por el que no sirve.
+// Convierte una oferta en una Promo, o devuelve el motivo por el que no sirve.
 export function validarFila(fila: Record<string, string>): Promo | string {
   const f = Object.fromEntries(
-    Object.entries(fila).map(([k, v]) => [k.trim().toLowerCase(), (v ?? "").trim()]),
+    Object.entries(fila).map(([k, v]) => [k.trim().toLowerCase(), String(v ?? "").trim()]),
   );
   for (const campo of ["id", "casino", "provincia", "tipo", "titulo", "condiciones", "desde", "verificada"]) {
     if (!f[campo]) return `falta "${campo}"`;
@@ -97,26 +90,18 @@ export function validarFila(fila: Record<string, string>): Promo | string {
   };
 }
 
-let cache: Promise<Promo[]> | undefined;
+let cache: Promo[] | undefined;
 
-// Promos válidas y no vencidas. Las filas con errores se saltean y se avisan en la consola del build.
-export function cargarPromos(): Promise<Promo[]> {
-  cache ??= (async () => {
-    const { data: filas } = Papa.parse<Record<string, string>>(await leerCsv(), {
-      header: true,
-      skipEmptyLines: "greedy",
-    });
-    const promos: Promo[] = [];
-    const ids = new Set<string>();
-    filas.forEach((fila, i) => {
-      const r = validarFila(fila);
-      if (typeof r === "string") return console.warn(`[promos] fila ${i + 2} salteada: ${r}`);
-      if (ids.has(r.id)) return console.warn(`[promos] fila ${i + 2} salteada: id "${r.id}" repetido`);
-      ids.add(r.id);
-      if (r.hasta && r.hasta < hoy()) return;
-      promos.push(r);
-    });
-    return promos;
-  })();
+// Promos válidas y no vencidas. Las que tienen errores se saltean y se avisan en la consola del build.
+export async function cargarPromos(): Promise<Promo[]> {
+  cache ??= Object.entries(archivos).flatMap(([ruta, datos]) => {
+    const id = ruta.split("/").pop()!.replace(/\.json$/, "");
+    const r = validarFila({ ...datos, id });
+    if (typeof r === "string") {
+      console.warn(`[promos] ${id} salteada: ${r}`);
+      return [];
+    }
+    return r.hasta && r.hasta < hoy() ? [] : [r];
+  });
   return cache;
 }
