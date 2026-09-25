@@ -43,8 +43,8 @@ Si una fila tiene un error (casino que no existe, casino sin licencia en esa pro
 
 `src/data/casinos.json` tiene las 24 jurisdicciones (23 provincias más CABA) y cada casino con su dominio `.bet.ar` por provincia.
 
-- Licencias verificadas contra listas oficiales: CABA, Provincia de Buenos Aires, Mendoza, Misiones, Córdoba (parcial) y La Rioja. El resto se completa a medida que se revisan.
-- Salta, Santiago del Estero y Tierra del Fuego no tienen juego online regulado (`"estado": "sin-regulacion"`); San Juan está en proceso (`"en-proceso"`).
+- Licencias verificadas contra listas oficiales o comunicados del regulador en todas las provincias con juego online. Donde no hay lista pública (Córdoba, Santa Fe, Jujuy, Santiago del Estero, Chaco, Formosa, Corrientes, Neuquén), la fuente es la prensa o el selector de provincias de la propia marca.
+- Tierra del Fuego no tiene juego online regulado (`"estado": "sin-regulacion"`); San Juan y Tucumán están en proceso (`"en-proceso"`).
 
 ## Desarrollo
 
