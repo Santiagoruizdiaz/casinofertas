@@ -94,6 +94,7 @@ button, select, input { font: inherit; color: inherit; }
 
 .filters { position: sticky; top: 60px; z-index: 5; background: var(--bg); display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding-block: 12px; border-bottom: 1px solid var(--line); margin-bottom: 18px; }
 .types { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; flex: 1 1 auto; min-width: 0; }
+.types.verticales { flex: 0 0 auto; padding-right: 10px; border-right: 1px solid var(--line); }
 .pill { border: 1px solid var(--line); background: var(--surface); padding: 6px 13px; border-radius: 999px; cursor: pointer; font-weight: 500; font-size: 14px; white-space: nowrap; }
 .pill[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 .tools { display: flex; gap: 8px; flex: 0 1 auto; }

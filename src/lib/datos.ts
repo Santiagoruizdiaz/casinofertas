@@ -19,11 +19,20 @@ export const TIPOS = {
 } as const;
 export type Tipo = keyof typeof TIPOS;
 
+// Si la oferta es para casino, para apuestas deportivas o sirve para las dos.
+export const VERTICALES = {
+  casino: "Casino",
+  deportes: "Deportes",
+  ambos: "Casino y deportes",
+} as const;
+export type Vertical = keyof typeof VERTICALES;
+
 export type Promo = {
   id: string;
   casino: Casino;
   provincia: Provincia;
   tipo: Tipo;
+  vertical: Vertical;
   titulo: string;
   monto: string;
   condiciones: string;
@@ -68,6 +77,8 @@ export function validarFila(fila: Record<string, string>): Promo | string {
   if (!dominio) return `${casino.nombre} no tiene licencia en ${provincia.nombre}`;
   const tipo = f.tipo.toLowerCase();
   if (!(tipo in TIPOS)) return `el tipo "${f.tipo}" no existe (usá: ${Object.keys(TIPOS).join(", ")})`;
+  const vertical = (f.vertical || "ambos").toLowerCase();
+  if (!(vertical in VERTICALES)) return `"vertical" tiene que ser ${Object.keys(VERTICALES).join(", ")}`;
   for (const campo of ["desde", "hasta", "verificada"]) {
     if (f[campo]) f[campo] = normalizarFecha(f[campo]);
     if (f[campo] && !FECHA.test(f[campo])) return `"${campo}" tiene que ser una fecha como 25/09/2026`;
@@ -78,6 +89,7 @@ export function validarFila(fila: Record<string, string>): Promo | string {
     casino,
     provincia,
     tipo: tipo as Tipo,
+    vertical: vertical as Vertical,
     titulo: f.titulo,
     monto: f.monto ?? "",
     condiciones: f.condiciones,

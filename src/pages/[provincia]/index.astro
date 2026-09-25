@@ -1,7 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import PromoCard from "../../components/PromoCard.astro";
-import { TIPOS, cargarPromos, casinos, provincias, type Provincia } from "../../lib/datos";
+import { TIPOS, VERTICALES, cargarPromos, casinos, provincias, type Provincia } from "../../lib/datos";
 
 export function getStaticPaths() {
   return provincias.map((provincia) => ({ params: { provincia: provincia.id }, props: { provincia } }));
@@ -12,6 +12,9 @@ const promos = (await cargarPromos())
   .filter((p) => p.provincia.id === provincia.id)
   .sort((a, b) => (a.hasta || "9999").localeCompare(b.hasta || "9999"));
 const tipos = Object.entries(TIPOS).filter(([k]) => promos.some((p) => p.tipo === k));
+// El filtro casino / deportes solo aparece si cambia algo: tiene que haber ofertas de los dos lados.
+const hayVerticales = promos.some((p) => p.vertical !== "deportes") && promos.some((p) => p.vertical !== "casino")
+  && promos.some((p) => p.vertical !== "ambos");
 const habilitados = casinos.filter((c) => c.licencias[provincia.id]).length;
 ---
 <Base
@@ -46,6 +49,13 @@ const habilitados = casinos.filter((c) => c.licencias[provincia.id]).length;
   {promos.length > 0 ? (
     <>
       <div class="filters">
+        {hayVerticales && (
+          <div class="types verticales" role="group" aria-label="Casino o deportes">
+            <button class="pill" data-vertical="todas" aria-pressed="true">Todo</button>
+            <button class="pill" data-vertical="casino" aria-pressed="false">{VERTICALES.casino}</button>
+            <button class="pill" data-vertical="deportes" aria-pressed="false">{VERTICALES.deportes}</button>
+          </div>
+        )}
         <div class="types" role="group" aria-label="Filtrar por tipo">
           <button class="pill" data-tipo="todas" aria-pressed="true">Todas</button>
           {tipos.map(([k, v]) => <button class="pill" data-tipo={k} aria-pressed="false">{v}</button>)}
@@ -108,7 +118,7 @@ const habilitados = casinos.filter((c) => c.licencias[provincia.id]).length;
         document.querySelector("#n-pronto")!.textContent = String(pronto);
         document.querySelector<HTMLElement>("#stat-pronto")!.hidden = false;
       }
-      const estado = { tipo: "todas", q: "", orden: "vence" };
+      const estado = { tipo: "todas", vertical: "todas", q: "", orden: "vence" };
       const count = document.querySelector("#count")!;
       const vacio = document.querySelector<HTMLElement>("#vacio")!;
 
@@ -120,7 +130,12 @@ const habilitados = casinos.filter((c) => c.licencias[provincia.id]).length;
         };
         let n = 0;
         for (const c of [...vivas].sort(orden[estado.orden])) {
-          const ok = (estado.tipo === "todas" || c.dataset.tipo === estado.tipo) && c.dataset.buscar!.includes(estado.q);
+          // Las ofertas "ambos" aparecen tanto en Casino como en Deportes.
+          const v = c.dataset.vertical;
+          const ok =
+            (estado.tipo === "todas" || c.dataset.tipo === estado.tipo) &&
+            (estado.vertical === "todas" || v === estado.vertical || v === "ambos") &&
+            c.dataset.buscar!.includes(estado.q);
           c.hidden = !ok;
           if (ok) n++;
           grid.append(c);
@@ -129,13 +144,16 @@ const habilitados = casinos.filter((c) => c.licencias[provincia.id]).length;
         vacio.hidden = n > 0;
       };
 
-      document.querySelectorAll<HTMLButtonElement>("[data-tipo].pill").forEach((b) =>
-        b.addEventListener("click", () => {
-          estado.tipo = b.dataset.tipo!;
-          document.querySelectorAll(".pill").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
-          pintar();
-        }),
-      );
+      for (const campo of ["tipo", "vertical"] as const) {
+        const botones = document.querySelectorAll<HTMLButtonElement>(`[data-${campo}].pill`);
+        botones.forEach((b) =>
+          b.addEventListener("click", () => {
+            estado[campo] = b.dataset[campo]!;
+            botones.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+            pintar();
+          }),
+        );
+      }
       document.querySelector<HTMLInputElement>("#q")!.addEventListener("input", (e) => {
         estado.q = (e.target as HTMLInputElement).value.trim().toLowerCase();
         pintar();
