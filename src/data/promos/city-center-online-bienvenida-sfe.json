@@ -2,12 +2,12 @@
   "casino": "city-center-online",
   "provincia": "sfe",
   "tipo": "bienvenida",
-  "titulo": "Devolución de tu primer depósito (Kit Bienvenida)",
-  "monto": "Hasta $1.000.000 de devolución",
-  "condiciones": "Primer depósito mínimo $1.000, código promo DIVERTITE, solo en slots y bingo de Games Global. Se activa dentro de los 10 días desde el registro y el bono se usa en 2 días.",
-  "rollover": "x25 en casino",
-  "desde": "2026-09-25",
-  "hasta": "",
+  "titulo": "$15.000 para slots por registrarte",
+  "monto": "$15.000",
+  "condiciones": "Free cash bonus solo por registrarte, en slots y bingos de Games Global. Hay que usarlo dentro de los 2 días de activado.",
+  "rollover": "x40 ($600.000 apostados)",
+  "desde": "2026-09-16",
+  "hasta": "2026-12-31",
   "link": "https://www.citycenteronline.bet.ar/promociones/",
-  "verificada": ""
+  "verificada": "2026-09-25"
 }
