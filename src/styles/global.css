@@ -134,6 +134,21 @@ th { font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: 
 tr:last-child td { border-bottom: 0; }
 td code { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); }
 
+/* Juego responsable */
+.ayuda-ya { background: var(--accent-soft); border-radius: var(--radius); padding: 20px 22px; margin: 8px 0 12px; }
+.ayuda-ya h3 { margin: 0 0 14px; font-family: var(--display); font-weight: 600; font-size: 19px; letter-spacing: -0.02em; }
+.ayuda-ya-lineas { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.linea { display: grid; gap: 3px; align-content: start; font-size: 14px; color: var(--ink-2); }
+.linea strong { color: var(--ink); }
+.linea-num { font-family: var(--display); font-weight: 600; font-size: 28px; letter-spacing: -0.02em; color: var(--accent); text-decoration: none; line-height: 1.1; }
+.ayuda-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.ayuda-prov { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: grid; gap: 4px; align-content: start; font-size: 14px; }
+.ayuda-prov h3 { margin: 0; font-size: 15px; }
+.ayuda-prog { margin: 0; color: var(--ink-2); font-size: 13px; }
+.ayuda-tel { font-weight: 600; font-size: 18px; font-variant-numeric: tabular-nums; text-decoration: none; margin-top: 4px; }
+.ayuda-hora { color: var(--ink-3); font-size: 13px; }
+.ayuda-links { display: flex; gap: 14px; margin-top: 6px; font-size: 13px; }
+
 /* Pie */
 .pie { margin-top: 48px; border-top: 1px solid var(--line); padding-block: 28px 40px; }
 .pie-in { display: grid; grid-template-columns: auto 1fr; gap: 16px 22px; align-items: start; }
@@ -157,7 +172,11 @@ td code { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); }
   .card:hover { border-color: var(--ink-3); transform: translateY(-2px); }
 }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-.pie-marca { margin-top: 24px; display: flex; align-items: center; gap: 10px; color: var(--ink-3); font-size: 12px; }
+.pie-marca { margin-top: 24px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; color: var(--ink-3); font-size: 12px; }
+.pie-contacto { margin-left: auto; display: flex; gap: 16px; flex-wrap: wrap; font-size: 13px; }
+.pie-contacto a { display: inline-flex; align-items: center; gap: 6px; color: var(--ink-2); text-decoration: none; }
+.pie-contacto a:hover { color: var(--ink); text-decoration: underline; }
+.pie-contacto svg { width: 16px; height: 16px; flex: none; }
 
 /* Botón de tema */
 .bar-end { display: flex; align-items: center; gap: 18px; }

@@ -1,29 +1,106 @@
 ---
 import Base from "../../layouts/Base.astro";
 import { provincias } from "../../lib/datos";
-const conAyuda = provincias.filter((p) => p.ayuda);
+import ayuda from "../../data/ayuda.json";
+
+type Linea = { programa: string; telefono?: string; whatsapp?: string; horario?: string; fuente: string; autoexclusion?: string };
+const lineas = ayuda.provincias as Record<string, Linea>;
+const conLinea = provincias.filter((p) => lineas[p.id]);
+const sinLinea = provincias.filter((p) => !lineas[p.id]);
+
+const tel = (t: string) => `tel:${t.replace(/\s*int\..*$/, "").replace(/[^\d+]/g, "")}`;
+const wa = (t: string) => `https://wa.me/549${t.replace(/\D/g, "")}`;
+const fecha = new Date(`${ayuda.revisado}T12:00:00`).toLocaleDateString("es-AR", { day: "numeric", month: "long", year: "numeric" });
 ---
 <Base
   title="Juego responsable | Casinofertas"
-  description="Señales de alerta y dónde pedir ayuda por juego compulsivo en Argentina."
+  description="Señales de alerta, consejos para jugar con control y líneas de ayuda gratuitas por juego problemático en cada provincia argentina."
   seccion="juego"
 >
   <h2>Juego responsable</h2>
   <p class="lead">
-    Las promociones son para mayores de 18. Si el juego dejó de ser un entretenimiento, pedí ayuda: es gratuita y
-    confidencial.
+    Las apuestas online son solo para mayores de 18. Jugar tiene que ser un entretenimiento con un costo que elegís de
+    antemano, nunca una forma de ganar plata. Si dejó de ser eso, pedir ayuda es gratis y confidencial.
   </p>
-  <ul>
-    <li>Ponete un límite de dinero y de tiempo antes de empezar, y respetalo.</li>
-    <li>No juegues para recuperar lo que perdiste.</li>
-    <li>Todos los casinos .bet.ar te permiten fijar límites de depósito o autoexcluirte desde tu cuenta.</li>
-  </ul>
-  {conAyuda.length > 0 && (
-    <>
-      <h2>Líneas de ayuda</h2>
-      <ul>
-        {conAyuda.map((p) => <li>{p.nombre}: <strong>{p.ayuda}</strong></li>)}
-      </ul>
-    </>
-  )}
+
+  <section class="ayuda-ya" aria-labelledby="ayuda-ya">
+    <h3 id="ayuda-ya">¿Necesitás hablar con alguien ahora?</h3>
+    <div class="ayuda-ya-lineas">
+      {ayuda.nacionales.map((l) => (
+        <div class="linea">
+          <a class="linea-num" href={tel(l.telefono)}>{l.telefono}</a>
+          <strong>{l.nombre}</strong>
+          <span>{l.detalle}</span>
+          {l.web && <a href={l.web} target="_blank" rel="noopener">Grupos virtuales</a>}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <div class="prose">
+    <h2>Señales de alerta</h2>
+    <p>Si te pasa alguna de estas cosas, es un buen momento para frenar y hablarlo con alguien:</p>
+    <ul>
+      <li>Apostás más plata o más tiempo del que habías pensado, y te cuesta cortar.</li>
+      <li>Volvés a jugar para recuperar lo que perdiste.</li>
+      <li>Pedís prestado, vendés cosas o usás plata de gastos fijos para apostar.</li>
+      <li>Ocultás o mentís sobre cuánto jugás.</li>
+      <li>Te ponés irritable o ansioso cuando no podés jugar, o jugás para escaparte de un problema.</li>
+      <li>Dejás de lado el trabajo, el estudio, la familia o el descanso por las apuestas.</li>
+    </ul>
+
+    <h2>Consejos para jugar con control</h2>
+    <ul>
+      <li><strong>Definí un presupuesto antes de empezar</strong> y tomalo como plata gastada. Nunca uses plata para cuentas, alquiler o comida.</li>
+      <li><strong>Poné un límite de tiempo</strong> y usá una alarma. Hacé pausas.</li>
+      <li><strong>No persigas pérdidas.</strong> Si llegaste al límite, se terminó por hoy.</li>
+      <li><strong>No juegues con alcohol, cansado o mal de ánimo.</strong> Son los momentos en que más se pierde el control.</li>
+      <li><strong>Leé las condiciones de cada bono.</strong> El rollover te obliga a apostar varias veces el monto antes de poder retirar; un bono grande con rollover alto puede hacerte jugar mucho más de lo que pensabas.</li>
+      <li><strong>Jugá solo en sitios .bet.ar con licencia en tu provincia.</strong> Son los únicos obligados a verificar tu edad, ofrecer herramientas de control y responder ante un regulador.</li>
+    </ul>
+
+    <h2>Herramientas que tenés en tu cuenta</h2>
+    <p>Todos los casinos con licencia están obligados a ofrecerlas. Las encontrás en la sección de juego responsable de tu cuenta:</p>
+    <ul>
+      <li><strong>Límites de depósito</strong> por día, semana o mes. Bajarlos se aplica al instante; subirlos suele demorar.</li>
+      <li><strong>Límites de tiempo de sesión</strong> y recordatorios de cuánto llevás jugando.</li>
+      <li><strong>Pausa temporal</strong> de la cuenta por días o semanas.</li>
+      <li><strong>Autoexclusión</strong>: te bloquea por un plazo largo. Varias provincias tienen además un registro oficial que te excluye de todos los casinos y salas a la vez (los links están abajo).</li>
+    </ul>
+
+    <h2>Si te preocupa alguien cercano</h2>
+    <ul>
+      <li>Hablale sin juzgar, en un momento tranquilo, y contale lo que notaste.</li>
+      <li>No pagues sus deudas de juego ni le prestes plata para cubrirlas: suele alargar el problema.</li>
+      <li>Las líneas de abajo también atienden a familiares y amigos.</li>
+      <li>Con chicos y adolescentes, la Línea 102 orienta a adultos preocupados. Activá el control parental en celulares y consolas.</li>
+    </ul>
+  </div>
+
+  <h2>Líneas de ayuda por provincia</h2>
+  <p class="lead">
+    Programas oficiales de las loterías y los gobiernos provinciales. Datos revisados el {fecha} en la fuente de cada uno.
+  </p>
+  <div class="ayuda-grid">
+    {conLinea.map((p) => {
+      const l = lineas[p.id];
+      return (
+        <article class="ayuda-prov">
+          <h3>{p.nombre}</h3>
+          <p class="ayuda-prog">{l.programa}</p>
+          {l.telefono ? <a class="ayuda-tel" href={tel(l.telefono)}>{l.telefono}</a> : <p class="ayuda-prog">Sin teléfono publicado. Llamá a la Línea 141.</p>}
+          {l.whatsapp && <a href={wa(l.whatsapp)} target="_blank" rel="noopener">WhatsApp {l.whatsapp}</a>}
+          {l.horario && <span class="ayuda-hora">{l.horario}</span>}
+          <div class="ayuda-links">
+            {l.autoexclusion && <a href={l.autoexclusion} target="_blank" rel="noopener">Autoexclusión</a>}
+            <a href={l.fuente} target="_blank" rel="noopener">Fuente</a>
+          </div>
+        </article>
+      );
+    })}
+  </div>
+  <p class="count" style="margin-top:14px">
+    En {new Intl.ListFormat("es", { type: "conjunction" }).format(sinLinea.map((p) => p.nombre))} no encontramos una línea provincial publicada. Ahí podés llamar a la Línea
+    141, que atiende en todo el país.
+  </p>
 </Base>

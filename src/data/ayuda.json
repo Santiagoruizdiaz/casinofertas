@@ -1,0 +1,135 @@
+{
+  "revisado": "2026-09-25",
+  "nacionales": [
+    {
+      "nombre": "Línea 141 de SEDRONAR",
+      "detalle": "Consumos problemáticos, incluidas las apuestas. Gratuita, anónima, en todo el país, las 24 horas.",
+      "telefono": "141",
+      "fuente": "https://www.argentina.gob.ar/salud/sedronar"
+    },
+    {
+      "nombre": "Línea 102",
+      "detalle": "Para chicos, chicas y adolescentes, o adultos preocupados por uno. Gratuita y confidencial, las 24 horas.",
+      "telefono": "102",
+      "fuente": "https://www.argentina.gob.ar/noticias/capital-humano-impulsa-una-campana-para-prevenir-las-apuestas-de-ninos-y-adolescentes"
+    },
+    {
+      "nombre": "Jugadores Anónimos Argentina",
+      "detalle": "Grupos de apoyo presenciales en todo el país y grupos virtuales. Teléfono de 14:30 a 18 h.",
+      "telefono": "+54 9 11 4412-6745",
+      "web": "https://jugadoresanonimos.org.ar/grupo-virtual/",
+      "fuente": "https://jugadoresanonimos.org.ar/nuestros-centros/"
+    }
+  ],
+  "provincias": {
+    "caba": {
+      "programa": "Línea de orientación por juego problemático (LOTBA)",
+      "telefono": "0800-666-6006",
+      "horario": "Lunes a viernes de 9 a 17 h",
+      "fuente": "https://juegosegurolegal.gob.ar/?page=linea-orientacion",
+      "autoexclusion": "https://juegosegurolegal.gob.ar/?page=autoexclusion"
+    },
+    "pba": {
+      "programa": "Programa de Prevención y Asistencia al Juego Compulsivo",
+      "telefono": "0800-444-4000",
+      "horario": "Las 24 horas",
+      "fuente": "https://loteria.gba.gob.ar/juego-compulsivo",
+      "autoexclusion": "https://loteria.gba.gob.ar/juego-compulsivo#autoexclusion"
+    },
+    "cba": {
+      "programa": "Programa Juego Responsable (Lotería de Córdoba)",
+      "telefono": "0800-777-2983",
+      "whatsapp": "351 627-2168",
+      "horario": "Teléfono las 24 horas; WhatsApp de 10 a 18 h",
+      "fuente": "https://www.loteriadecordoba.com.ar/juego-responsable",
+      "autoexclusion": "https://www.loteriadecordoba.com.ar/juego-responsable"
+    },
+    "mza": {
+      "programa": "Programa Juego Responsable (IPJyC)",
+      "telefono": "(0261) 424-7536",
+      "whatsapp": "261 472-2471",
+      "horario": "Lunes a viernes de 8 a 14 h",
+      "fuente": "https://sitios.mendoza.gob.ar/juegosycasinos/juego-responsable/",
+      "autoexclusion": "https://sitios.mendoza.gob.ar/juegosycasinos/juego-responsable/"
+    },
+    "er": {
+      "programa": "PREVENJUEGO (IAFAS)",
+      "telefono": "0800-888-2202",
+      "whatsapp": "343 405-5252",
+      "horario": "Lunes a viernes de 7 a 14 h",
+      "fuente": "https://www.iafas.gov.ar/juego-responsable/prevenjuego/",
+      "autoexclusion": "https://www.iafas.gov.ar/juego-responsable/prevenjuego/"
+    },
+    "mis": {
+      "programa": "Programa de Juego Responsable (IPLyC)",
+      "telefono": "0800-888-5836",
+      "whatsapp": "3764 68-3173",
+      "horario": "Lunes a viernes de 7 a 13 h",
+      "fuente": "https://juegoresponsable.loteriademisiones.com.ar/",
+      "autoexclusion": "https://juegoresponsable.loteriademisiones.com.ar/autoexcluirme/"
+    },
+    "sal": {
+      "programa": "Programa de Juego Responsable (ENREJA)",
+      "telefono": "0800-555-8548",
+      "whatsapp": "387 542-0599",
+      "fuente": "https://www.enrejasalta.com.ar/jr.php",
+      "autoexclusion": "https://www.enrejasalta.com.ar/ae.php"
+    },
+    "juj": {
+      "programa": "INPROJUY, juego responsable y autoexclusión",
+      "telefono": "(0388) 423-9400",
+      "whatsapp": "388 404-5348",
+      "horario": "De 8 a 13 h",
+      "fuente": "https://prensa.jujuy.gob.ar/inprojuy/inprojuy-promueve-la-autoexclusion-como-herramienta-clave-el-cuidado-el-juego-apuestas-n122716"
+    },
+    "rn": {
+      "programa": "Lotería de Río Negro, asistencia al jugador",
+      "telefono": "0800-222-1700",
+      "horario": "Las 24 horas",
+      "fuente": "https://www.rionegro.gov.ar/articulo/48373/loteria-de-rio-negro-concientiza-y-promueve-el-juego-responsable"
+    },
+    "lpa": {
+      "programa": "Programa de Juego Responsable (DAFAS)",
+      "telefono": "(02954) 38-3600",
+      "whatsapp": "2954 20-2112",
+      "horario": "Lunes a viernes de 7 a 13 h",
+      "fuente": "https://www.isslapampa.gob.ar/dafas-juego-responsable/",
+      "autoexclusion": "https://www.isslapampa.gob.ar/dafas-juego-responsable/"
+    },
+    "tdf": {
+      "programa": "Programa de Asistencia al Juego Compulsivo (IPRA)",
+      "telefono": "(02901) 43-3515 int. 512",
+      "whatsapp": "2901 65-9880",
+      "fuente": "https://www.ipra.gov.ar/web/juegoresponsable/"
+    },
+    "sj": {
+      "programa": "Programa Provincial de Juego Responsable",
+      "telefono": "0800-999-1314",
+      "whatsapp": "264 455-3619",
+      "horario": "Lunes a viernes de 8 a 12 h",
+      "fuente": "https://cas.gob.ar/juegos/responsable",
+      "autoexclusion": "https://cas.gob.ar/juegos/autoexclusion/"
+    },
+    "cha": {
+      "programa": "Programa de Juego Responsable (Lotería Chaqueña)",
+      "telefono": "0800-888-2008",
+      "fuente": "https://loteria.chaco.gov.ar/juego_responsable"
+    },
+    "ctes": {
+      "programa": "Programa de Juego Responsable (Lotería Correntina)",
+      "telefono": "(0379) 447-6213",
+      "fuente": "https://loteriacorrentina.gob.ar/juego-responsable",
+      "autoexclusion": "https://loteriacorrentina.gob.ar/juego-responsable"
+    },
+    "sl": {
+      "programa": "Programa Integral de Juego Responsable (Lotería de San Luis)",
+      "telefono": "0800-666-6176",
+      "fuente": "https://loteriadesanluis.bet.ar/"
+    },
+    "chu": {
+      "programa": "Juego Responsable (Lotería del Chubut)",
+      "fuente": "https://loteriadelchubut.com.ar/juego-responsable/",
+      "autoexclusion": "https://loteriadelchubut.com.ar/formulario-de-autoexclusion/"
+    }
+  }
+}

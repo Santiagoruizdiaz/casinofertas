@@ -69,7 +69,19 @@ const actual = (s: string) => (s === seccion ? "page" : undefined);
           </div>
         </div>
       </div>
-      <div class="wrap pie-marca"><Marca size={20} /><span>Casinofertas · Argentina</span></div>
+      <div class="wrap pie-marca">
+        <Marca size={20} /><span>Casinofertas · Argentina</span>
+        <div class="pie-contacto">
+          <a href="https://www.instagram.com/casinofertas/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" /></svg>
+            @casinofertas
+          </a>
+          <a href="mailto:consultas@casinofertas.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3.5 6.5 8.5 6.5 8.5-6.5" /></svg>
+            consultas@casinofertas.com
+          </a>
+        </div>
+      </div>
     </footer>
     <script>
       const boton = document.querySelector<HTMLButtonElement>("#tema")!;
