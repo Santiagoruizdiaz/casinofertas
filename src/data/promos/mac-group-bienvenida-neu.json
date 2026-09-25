@@ -2,12 +2,12 @@
   "casino": "mac-group",
   "provincia": "neu",
   "tipo": "bienvenida",
-  "titulo": "100% de tu primer depósito",
-  "monto": "100% hasta $30.000",
-  "condiciones": "Depósito mínimo $100 y 45 días de vigencia, según reseña. En el sitio oficial figura la promo 'BONO BIENVENIDA', pero los términos no se pudieron leer.",
-  "rollover": "x5",
-  "desde": "2026-09-25",
-  "hasta": "",
+  "titulo": "100% de tu primer depósito con el código BIENVENIDA26",
+  "monto": "100% hasta $100.000",
+  "condiciones": "100% del primer depósito. Depósito mínimo $500. Se activa con el código BIENVENIDA26 al registrarte. El bono dura 45 días desde el registro. Solo slots y bingo habilitados (sin mesas en vivo). Uno por cliente, previa acreditación de DNI. En Neuquén vale solo en Zapala, Rincón de los Sauces y Plaza Huincul.",
+  "rollover": "x10 del depósito",
+  "desde": "2026-01-01",
+  "hasta": "2026-12-31",
   "link": "https://casinosmacgroup.bet.ar/promociones/",
-  "verificada": ""
+  "verificada": "2026-09-25"
 }
