@@ -47,6 +47,7 @@
     { "id": "mi-tesoro", "nombre": "Mi Tesoro", "color": "#B08900", "licencias": { "lrj": "mitesoro.bet.ar" } },
     { "id": "guazubet", "nombre": "GuazuBet", "color": "#1F7A3A", "licencias": { "mis": "guazubet.bet.ar" } },
     { "id": "tucanwin", "nombre": "TucanWin", "color": "#E07A00", "licencias": { "mis": "tucanwin.bet.ar" } },
+    { "id": "divergana", "nombre": "Divergana", "color": "#5A189A", "licencias": { "mis": "divergana.bet.ar" } },
     { "id": "easybet", "nombre": "Easy Bet", "color": "#1B998B", "licencias": { "lrj": "larioja.easybet.bet.ar" } }
   ]
 }
