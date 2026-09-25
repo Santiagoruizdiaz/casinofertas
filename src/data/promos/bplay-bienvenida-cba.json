@@ -2,12 +2,12 @@
   "casino": "bplay",
   "provincia": "cba",
   "tipo": "bienvenida",
-  "titulo": "$25.000 por registrarte + hasta 100% de tu primer depósito",
-  "monto": "$25.000 + hasta 100% del 1er depósito",
-  "condiciones": "Bono de registro de $25.000 (casino y deportes) y bono de casino de hasta el 100% del primer depósito. La página no muestra tope ni rollover.",
+  "titulo": "$25.000 + 40 giros gratis por registrarte",
+  "monto": "$25.000 + 40 giros gratis",
+  "condiciones": "Al registrarte: bono de bienvenida de $20.000 para jugar en casino y deportes, más una apuesta gratis de $5.000 en un evento deportivo seleccionado cada semana, más 40 giros gratis en un slot seleccionado cada mes. La página no muestra rollover ni topes.",
   "rollover": "",
   "desde": "2026-09-25",
-  "hasta": "2026-12-31",
-  "link": "https://cordoba.bplay.bet.ar/promociones",
-  "verificada": ""
+  "hasta": "",
+  "link": "https://cordoba.bplay.bet.ar/",
+  "verificada": "2026-09-25"
 }

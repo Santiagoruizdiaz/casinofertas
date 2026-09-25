@@ -2,12 +2,12 @@
   "casino": "bplay",
   "provincia": "sfe",
   "tipo": "bienvenida",
-  "titulo": "$25.000 por registrarte + hasta 200% de tu primer depósito",
-  "monto": "$25.000 sin depósito + hasta 200% del 1er depósito",
-  "condiciones": "Bono de registro de $25.000 para casino y deportes ($10.000 en bono + $15.000 en freebets según reseña). Además, promo de casino '¡Depositá y triplicá!': hasta el 200% del primer depósito. La página no muestra tope, depósito mínimo ni rollover.",
+  "titulo": "$25.000 + 40 giros gratis por registrarte",
+  "monto": "$25.000 + 40 giros gratis",
+  "condiciones": "Al registrarte: bono de bienvenida de $20.000 para jugar en casino y deportes, más una apuesta gratis de $5.000 en un evento deportivo seleccionado cada semana, más 40 giros gratis en un slot seleccionado cada mes. La página no muestra rollover ni topes.",
   "rollover": "",
   "desde": "2026-09-25",
-  "hasta": "2026-12-31",
-  "link": "https://santafe.bplay.bet.ar/promociones",
-  "verificada": ""
+  "hasta": "",
+  "link": "https://santafe.bplay.bet.ar/",
+  "verificada": "2026-09-25"
 }

@@ -2,12 +2,12 @@
   "casino": "bplay",
   "provincia": "sde",
   "tipo": "bienvenida",
-  "titulo": "$25.000 por registrarte",
-  "monto": "$25.000",
-  "condiciones": "Según reseñas: bono de registro de $25.000 sin depósito y 100% del primer depósito en casino hasta $500.000 (mínimo $500). No verificado en los sitios de estas provincias.",
-  "rollover": "x35 en casino / x52,5 en deportes (según reseña)",
+  "titulo": "$25.000 + 40 giros gratis por registrarte",
+  "monto": "$25.000 + 40 giros gratis",
+  "condiciones": "Al registrarte: bono de bienvenida de $20.000 para jugar en casino y deportes, más una apuesta gratis de $5.000 en un evento deportivo seleccionado cada semana, más 40 giros gratis en un slot seleccionado cada mes. La página no muestra rollover ni topes.",
+  "rollover": "",
   "desde": "2026-09-25",
   "hasta": "",
   "link": "https://santiagodelestero.bplay.bet.ar/",
-  "verificada": ""
+  "verificada": "2026-09-25"
 }
