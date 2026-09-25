@@ -38,7 +38,7 @@
     {"id": "jugadon", "nombre": "Jugadón", "color": "#D62828", "licencias": {"caba": "caba.jugadon.bet.ar", "cba": "cordoba.jugadon.bet.ar", "lrj": "larioja.jugadon.bet.ar", "sl": "sanluis.jugadon.bet.ar", "sfe": "santafe.jugadon.bet.ar"}},
     {"id": "playcet", "nombre": "PlayCET", "color": "#0077B6", "licencias": {"cba": "playcet.bet.ar"}},
     {"id": "playuzu", "nombre": "PlayUzu", "color": "#6A4C93", "licencias": {"caba": "www.playuzu.bet.ar"}},
-    {"id": "sportsbet", "nombre": "Sportsbet", "color": "#0CA658", "licencias": {"pba": "sportsbet.bet.ar", "mza": "mza.sportsbet.bet.ar"}},
+    {"id": "sportsbet", "nombre": "Sportsbet", "color": "#0CA658", "licencias": {"pba": "pba.sports.bet.ar", "mza": "mza.sports.bet.ar"}},
     {"id": "stake", "nombre": "Stake", "color": "#1A2C38", "licencias": {"pba": "pba.stake.bet.ar"}},
     {"id": "super7", "nombre": "Super7", "color": "#7B2CBF", "licencias": {"caba": "www.super7.bet.ar", "mza": "mdz.super7.bet.ar"}},
     {"id": "mac-group", "nombre": "MAC Group Online", "color": "#3A0CA3", "licencias": {"lrj": "casinosmacgroup.bet.ar", "neu": "casinosmacgroup.bet.ar", "juj": "casinosmacgroup.bet.ar"}},
