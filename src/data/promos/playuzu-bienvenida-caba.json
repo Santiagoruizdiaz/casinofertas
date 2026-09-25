@@ -3,11 +3,11 @@
   "provincia": "caba",
   "tipo": "bienvenida",
   "titulo": "50 giros gratis con tu primer depósito",
-  "monto": "50 giros gratis (valor $5 c/u)",
-  "condiciones": "Solo primer depósito, mínimo $1.000. Giros en 'John Hunter and the Book of Tut'; las ganancias se pagan en dinero real, sin rollover, sin tope de ganancia ni retiro mínimo. Solo casino, sin oferta de bienvenida deportiva.",
-  "rollover": "Sin rollover (0x)",
+  "monto": "50 giros gratis de $5",
+  "condiciones": "Se acreditan al instante con el primer depósito, mínimo $1.000. Giros en John Hunter and the Book of Tut, de $5 cada uno. Las ganancias se pagan en dinero real, sin tope de ganancia ni retiro mínimo.",
+  "rollover": "Sin rollover",
   "desde": "2026-09-25",
   "hasta": "",
   "link": "https://www.playuzu.bet.ar/sorpresas/",
-  "verificada": ""
+  "verificada": "2026-09-25"
 }
