@@ -34,7 +34,7 @@
     {"id": "bplay", "nombre": "bplay", "color": "#0B6E4F", "licencias": {"caba": "caba.bplay.bet.ar", "pba": "pba.bplay.bet.ar", "mza": "mendoza.bplay.bet.ar", "cba": "cordoba.bplay.bet.ar", "sfe": "santafe.bplay.bet.ar", "juj": "jujuy.bplay.bet.ar", "sde": "santiagodelestero.bplay.bet.ar", "lrj": "larioja.bplay.bet.ar"}},
     {"id": "casino-ba-online", "nombre": "Casino Buenos Aires Online", "color": "#8D0801", "licencias": {"caba": "casinobuenosairesonline.bet.ar"}},
     {"id": "casino-club-online", "nombre": "Casino Club Online", "color": "#264653", "licencias": {"mza": "casinoclubonline.bet.ar", "mis": "casinoclubonline.bet.ar", "rn": "casinoclubonline.bet.ar", "chu": "casinoclubonline.bet.ar", "sc": "casinoclubonline.bet.ar", "lpa": "casinoclubonline.bet.ar", "tdf": "casinoclubonline.bet.ar"}},
-    {"id": "codere", "nombre": "Codere", "color": "#5E8C31", "licencias": {"caba": "www.codere.bet.ar", "mza": "m.mdz.codere.bet.ar"}},
+    {"id": "codere", "nombre": "Codere", "color": "#5E8C31", "licencias": {"caba": "m.caba.codere.bet.ar", "mza": "m.mdz.codere.bet.ar"}},
     {"id": "jugadon", "nombre": "Jugadón", "color": "#D62828", "licencias": {"caba": "caba.jugadon.bet.ar", "cba": "cordoba.jugadon.bet.ar", "lrj": "larioja.jugadon.bet.ar", "sl": "sanluis.jugadon.bet.ar", "sfe": "santafe.jugadon.bet.ar"}},
     {"id": "playcet", "nombre": "PlayCET", "color": "#0077B6", "licencias": {"cba": "playcet.bet.ar"}},
     {"id": "playuzu", "nombre": "PlayUzu", "color": "#6A4C93", "licencias": {"caba": "www.playuzu.bet.ar"}},
