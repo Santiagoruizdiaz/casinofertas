@@ -17,6 +17,10 @@ const fecha = (label: string, extra: Record<string, unknown>) => ({
   ...extra,
 });
 
+// En los previews de Netlify (HEAD es la rama del PR) el panel guarda en esa rama y no en main,
+// así se puede probar sin tocar el sitio publicado.
+const rama = process.env.HEAD || "main";
+
 const config = {
   load_config_file: false,
   locale: "es",
@@ -24,7 +28,7 @@ const config = {
   backend: {
     name: "github",
     repo: "Santiagoruizdiaz/casinofertas",
-    branch: "main",
+    branch: rama,
     base_url: "https://api.netlify.com",
     site_domain: "benevolent-meringue-c9fd77.netlify.app",
     commit_messages: {
