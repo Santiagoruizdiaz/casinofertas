@@ -1,0 +1,47 @@
+---
+import Base from "../layouts/Base.astro";
+import { cargarPromos, casinos, provincias } from "../lib/datos";
+
+const promos = await cargarPromos();
+const resumen = provincias.map((p) => ({
+  ...p,
+  casinos: casinos.filter((c) => c.licencias[p.id]).length,
+  promos: promos.filter((x) => x.provincia.id === p.id).length,
+}));
+---
+<Base
+  title="Casinofertas: promos de casinos online legales en Argentina"
+  description="Todas las promociones de los casinos online con licencia provincial en Argentina, filtradas por provincia."
+>
+  <section class="hero">
+    <h1>Todas las promos de casinos legales, en tu provincia</h1>
+    <p>
+      Solo sitios .bet.ar con licencia provincial. Cada casino es legal únicamente en las provincias que lo habilitaron,
+      así que elegí dónde estás jugando.
+    </p>
+  </section>
+  <div class="provs">
+    {resumen.map((p) => (
+      <a class="prov" href={`/${p.id}/`} data-prov={p.id}>
+        <strong>{p.nombre}</strong>
+        <span>
+          {p.estado === "sin-regulacion"
+            ? "Sin juego online regulado"
+            : p.estado === "en-proceso"
+              ? "Regulación en marcha"
+              : p.casinos === 0
+                ? "Casinos en verificación"
+                : `${p.promos} ${p.promos === 1 ? "promo vigente" : "promos vigentes"} · ${p.casinos} casinos`}
+        </span>
+      </a>
+    ))}
+  </div>
+  <script>
+    // Resalta la última provincia visitada.
+    try {
+      const prov = localStorage.getItem("prov");
+      const el = prov && document.querySelector<HTMLElement>(`[data-prov="${prov}"]`);
+      if (el) { el.style.borderColor = "var(--accent)"; el.parentElement?.prepend(el); }
+    } catch {}
+  </script>
+</Base>

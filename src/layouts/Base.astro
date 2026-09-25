@@ -1,0 +1,46 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  seccion?: "promos" | "casinos" | "juego";
+}
+const { title, description, seccion = "promos" } = Astro.props;
+const actual = (s: string) => (s === seccion ? "page" : undefined);
+---
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" />
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="bar">
+        <a class="logo" href="/"><span class="chip-logo" aria-hidden="true"></span>Casinofertas</a>
+        <nav class="nav" aria-label="Secciones">
+          <a href="/" aria-current={actual("promos")}>Promos</a>
+          <a href="/casinos/" aria-current={actual("casinos")}>Casinos</a>
+          <a href="/juego-responsable/" aria-current={actual("juego")}>Juego responsable</a>
+        </nav>
+      </header>
+      <main>
+        <slot />
+      </main>
+      <footer>
+        <span class="age" aria-label="Solo mayores de 18">+18</span>
+        <span>
+          Solo listamos sitios .bet.ar con licencia provincial. Jugar compulsivamente es perjudicial para la salud.{" "}
+          <a href="/juego-responsable/">Dónde pedir ayuda</a>.
+        </span>
+      </footer>
+    </div>
+  </body>
+</html>

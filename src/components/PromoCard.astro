@@ -1,0 +1,47 @@
+---
+import { TIPOS, type Promo } from "../lib/datos";
+
+interface Props { promo: Promo }
+const { promo: p } = Astro.props;
+
+const iniciales = p.casino.nombre.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase();
+const fecha = (d: string) =>
+  new Date(`${d}T12:00:00`).toLocaleDateString("es-AR", { day: "numeric", month: "short" });
+const buscar = `${p.casino.nombre} ${p.titulo} ${p.condiciones}`.toLowerCase();
+---
+<article
+  class="card"
+  data-tipo={p.tipo}
+  data-hasta={p.hasta || "9999-12-31"}
+  data-desde={p.desde}
+  data-casino={p.casino.nombre}
+  data-buscar={buscar}
+>
+  <div class="card-top">
+    <span class="mono-logo" style={`background:${p.casino.color}`} aria-hidden="true">{iniciales}</span>
+    <div>
+      <div class="brand">{p.casino.nombre}</div>
+      <div class="domain">{p.dominio}</div>
+    </div>
+    <span class="type">{TIPOS[p.tipo]}</span>
+  </div>
+  <div>
+    <h3>{p.titulo}</h3>
+    {p.monto && <div class="amount">{p.monto}</div>}
+  </div>
+  <p class="cond">{p.condiciones}</p>
+  <div style="display:grid;gap:10px">
+    <div class="facts">
+      {p.hasta
+        ? <span class="fact vence" data-fecha={p.hasta}>Hasta el {fecha(p.hasta)}</span>
+        : <span class="fact">Sin vencimiento publicado</span>}
+      {p.rollover && (
+        <span class="fact">{p.rollover === "x0" ? "Sin requisito de apuesta" : `Apostar ${p.rollover}`}</span>
+      )}
+    </div>
+    <div class="card-foot">
+      <span>Revisada el {fecha(p.verificada)}</span>
+      <a class="go" href={p.link} target="_blank" rel="noopener nofollow sponsored">Ver en {p.casino.nombre}</a>
+    </div>
+  </div>
+</article>

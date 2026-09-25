@@ -1,0 +1,132 @@
+---
+import Base from "../../layouts/Base.astro";
+import PromoCard from "../../components/PromoCard.astro";
+import { TIPOS, cargarPromos, casinos, provincias, type Provincia } from "../../lib/datos";
+
+export function getStaticPaths() {
+  return provincias.map((provincia) => ({ params: { provincia: provincia.id }, props: { provincia } }));
+}
+
+const { provincia } = Astro.props as { provincia: Provincia };
+const promos = (await cargarPromos())
+  .filter((p) => p.provincia.id === provincia.id)
+  .sort((a, b) => (a.hasta || "9999").localeCompare(b.hasta || "9999"));
+const tipos = Object.entries(TIPOS).filter(([k]) => promos.some((p) => p.tipo === k));
+const habilitados = casinos.filter((c) => c.licencias[provincia.id]).length;
+---
+<Base
+  title={`Promos de casinos online legales en ${provincia.nombre} | Casinofertas`}
+  description={`Promociones vigentes de los ${habilitados} casinos online con licencia en ${provincia.nombre}.`}
+>
+  <section class="hero">
+    <h1>Promos de casinos legales en {provincia.nombre}</h1>
+    <div class="where">
+      <label for="prov">¿Dónde estás jugando?</label>
+      <select id="prov">
+        {provincias.map((p) => <option value={p.id} selected={p.id === provincia.id}>{p.nombre}</option>)}
+      </select>
+      {habilitados > 0 && provincia.regulador && (
+        <span class="note">
+          {habilitados} casinos con licencia de <a href={provincia.fuente} rel="noopener" target="_blank">{provincia.regulador}</a>
+        </span>
+      )}
+    </div>
+  </section>
+
+  {promos.length > 0 ? (
+    <>
+      <div class="filters">
+        <div class="types" role="group" aria-label="Filtrar por tipo">
+          <button class="pill" data-tipo="todas" aria-pressed="true">Todas</button>
+          {tipos.map(([k, v]) => <button class="pill" data-tipo={k} aria-pressed="false">{v}</button>)}
+        </div>
+        <span class="grow"></span>
+        <input id="q" type="search" placeholder="Buscar casino o promo" aria-label="Buscar" />
+        <select id="orden" aria-label="Ordenar">
+          <option value="vence">Vencen primero</option>
+          <option value="nuevas">Más nuevas</option>
+          <option value="casino">Por casino</option>
+        </select>
+      </div>
+      <div class="count" id="count">{promos.length} {promos.length === 1 ? "promo vigente" : "promos vigentes"}</div>
+      <div class="grid" id="grid">
+        {promos.map((p) => <PromoCard promo={p} />)}
+      </div>
+      <div class="empty" id="vacio" hidden>No hay promos con este filtro.</div>
+    </>
+  ) : (
+    <div class="empty">
+      {provincia.estado === "sin-regulacion"
+        ? `${provincia.nombre} todavía no regula el juego online, así que no hay casinos online legales para jugar desde acá.`
+        : provincia.estado === "en-proceso"
+          ? `${provincia.nombre} aprobó el juego online pero todavía no habilitó casinos.`
+          : habilitados === 0
+            ? `Estamos verificando qué casinos tienen licencia en ${provincia.nombre}.`
+            : `Todavía no cargamos promos para ${provincia.nombre}.`}
+    </div>
+  )}
+
+  <script is:inline define:vars={{ provId: provincia.id }}>
+    try { localStorage.setItem("prov", provId); } catch {}
+  </script>
+  <script>
+    const sel = document.querySelector<HTMLSelectElement>("#prov")!;
+    sel.addEventListener("change", () => { location.href = `/${sel.value}/`; });
+
+    const grid = document.querySelector<HTMLElement>("#grid");
+    if (grid) {
+      const cards = [...grid.querySelectorAll<HTMLElement>(".card")];
+      const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+      const dias = (d: string) => Math.round((new Date(`${d}T00:00:00`).getTime() - hoy.getTime()) / 864e5);
+
+      // El sitio se reconstruye una vez por día; entre builds, ocultamos lo que venció y avisamos lo que está por vencer.
+      for (const c of cards) {
+        const d = dias(c.dataset.hasta!);
+        if (d < 0) c.remove();
+        const f = c.querySelector<HTMLElement>(".vence");
+        if (f && d >= 0 && d <= 7) {
+          f.classList.add("soon");
+          f.textContent = d === 0 ? "Vence hoy" : d === 1 ? "Vence mañana" : `Vence en ${d} días`;
+        }
+      }
+      const vivas = cards.filter((c) => c.isConnected);
+      const estado = { tipo: "todas", q: "", orden: "vence" };
+      const count = document.querySelector("#count")!;
+      const vacio = document.querySelector<HTMLElement>("#vacio")!;
+
+      const pintar = () => {
+        const orden: Record<string, (a: HTMLElement, b: HTMLElement) => number> = {
+          vence: (a, b) => a.dataset.hasta!.localeCompare(b.dataset.hasta!),
+          nuevas: (a, b) => b.dataset.desde!.localeCompare(a.dataset.desde!),
+          casino: (a, b) => a.dataset.casino!.localeCompare(b.dataset.casino!),
+        };
+        let n = 0;
+        for (const c of [...vivas].sort(orden[estado.orden])) {
+          const ok = (estado.tipo === "todas" || c.dataset.tipo === estado.tipo) && c.dataset.buscar!.includes(estado.q);
+          c.hidden = !ok;
+          if (ok) n++;
+          grid.append(c);
+        }
+        count.textContent = `${n} ${n === 1 ? "promo vigente" : "promos vigentes"}`;
+        vacio.hidden = n > 0;
+      };
+
+      document.querySelectorAll<HTMLButtonElement>("[data-tipo].pill").forEach((b) =>
+        b.addEventListener("click", () => {
+          estado.tipo = b.dataset.tipo!;
+          document.querySelectorAll(".pill").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+          pintar();
+        }),
+      );
+      document.querySelector<HTMLInputElement>("#q")!.addEventListener("input", (e) => {
+        estado.q = (e.target as HTMLInputElement).value.trim().toLowerCase();
+        pintar();
+      });
+      document.querySelector<HTMLSelectElement>("#orden")!.addEventListener("change", (e) => {
+        estado.orden = (e.target as HTMLSelectElement).value;
+        pintar();
+      });
+      pintar();
+    }
+  </script>
+</Base>
