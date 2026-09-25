@@ -41,7 +41,7 @@
     {"id": "sportsbet", "nombre": "Sportsbet", "color": "#0CA658", "licencias": {"pba": "pba.sports.bet.ar", "mza": "mza.sports.bet.ar"}},
     {"id": "stake", "nombre": "Stake", "color": "#1A2C38", "licencias": {"pba": "pba.stake.bet.ar"}},
     {"id": "super7", "nombre": "Super7", "color": "#7B2CBF", "licencias": {"caba": "www.super7.bet.ar", "mza": "mdz.super7.bet.ar"}},
-    {"id": "mac-group", "nombre": "MAC Group Online", "color": "#3A0CA3", "licencias": {"lrj": "casinosmacgroup.bet.ar", "neu": "casinosmacgroup.bet.ar", "juj": "casinosmacgroup.bet.ar"}},
+    {"id": "mac-group", "nombre": "MAC Group Online", "color": "#3A0CA3", "licencias": {"lrj": "casinosmacgroup.bet.ar", "neu": "casinosmacgroup.bet.ar", "juj": "casinosmacgroup.bet.ar", "sal": "casinosmacgroup.bet.ar"}},
     {"id": "playbet", "nombre": "PlayBet", "color": "#F77F00", "licencias": {"lrj": "play.bet.ar"}},
     {"id": "arbet", "nombre": "ARBET", "color": "#3D5A80", "licencias": {"lrj": "www.arbet.bet.ar"}},
     {"id": "mi-tesoro", "nombre": "Mi Tesoro", "color": "#B08900", "licencias": {"lrj": "mitesoro.bet.ar"}},
