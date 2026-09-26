@@ -11,10 +11,30 @@ const resumen = provincias.map((p) => ({
 const conCasinos = resumen.filter((p) => p.estado === "regulada" && p.casinos > 0);
 const enVerificacion = resumen.filter((p) => p.estado !== "sin-regulacion" && p.casinos === 0);
 const sinRegulacion = resumen.filter((p) => p.estado === "sin-regulacion");
+
+const schema = [
+  {
+    "@type": "WebSite",
+    name: "Casinofertas",
+    url: new URL("/", Astro.site).href,
+    inLanguage: "es-AR",
+    publisher: { "@id": new URL("/#organizacion", Astro.site).href },
+  },
+  {
+      "@type": "Organization",
+      "@id": new URL("/#organizacion", Astro.site).href,
+      name: "Casinofertas",
+      url: new URL("/", Astro.site).href,
+      logo: new URL("/favicon-512.png", Astro.site).href,
+      email: "consultas@casinofertas.com",
+      sameAs: ["https://www.instagram.com/casinofertas/"],
+    },
+];
 ---
 <Base
-  title="Casinofertas: promos de casinos online legales en Argentina"
-  description="Todas las promociones de los casinos online con licencia provincial en Argentina, filtradas por provincia."
+  title="Casinofertas: promos y bonos de casinos online legales en Argentina"
+  description={`Bonos de bienvenida, recargas, cashback y giros gratis de los ${casinos.length} casinos online con licencia provincial en Argentina, por provincia. Solo sitios .bet.ar, +18.`}
+  schema={schema}
 >
   <section class="hero">
     <p class="eyebrow">{casinos.length} casinos con licencia · {promos.length} promos vigentes</p>
