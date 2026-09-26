@@ -10,13 +10,21 @@ const filas = [...casinos]
     provs: provincias.filter((p) => c.licencias[p.id]),
     activas: promos.filter((p) => p.casino.id === c.id).length,
   }));
+const schema = {
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Casinofertas", item: new URL("/", Astro.site).href },
+    { "@type": "ListItem", position: 2, name: "Casinos con licencia", item: new URL("/casinos/", Astro.site).href },
+  ],
+};
 ---
 <Base
   title="Casinos online con licencia en Argentina | Casinofertas"
   description="Qué casinos online tienen licencia en cada provincia argentina y con qué dominio .bet.ar operan."
   seccion="casinos"
+  schema={schema}
 >
-  <h2>Casinos con licencia por provincia</h2>
+  <h1 class="titulo">Casinos con licencia por provincia</h1>
   <p class="lead">
     Un casino es legal solo en las provincias que lo habilitaron, y cada una le asigna su propio dominio .bet.ar.
     Los datos salen de las listas oficiales de cada regulador.

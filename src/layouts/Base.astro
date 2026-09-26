@@ -7,9 +7,16 @@ interface Props {
   title: string;
   description: string;
   seccion?: "promos" | "casinos" | "juego";
+  // Datos estructurados (schema.org) para Google, uno o varios objetos JSON-LD.
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+  // Para páginas que no tienen que aparecer en Google (por ejemplo, la 404).
+  noindex?: boolean;
 }
-const { title, description, seccion = "promos" } = Astro.props;
+const { title, description, seccion = "promos", schema, noindex = false } = Astro.props;
 const actual = (s: string) => (s === seccion ? "page" : undefined);
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const imagen = new URL("/og.png", Astro.site);
+const esquemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 ---
 <!doctype html>
 <html lang="es-AR">
@@ -18,8 +25,23 @@ const actual = (s: string) => (s === seccion ? "page" : undefined);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Casinofertas" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imagen} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Casinofertas: las promos de los casinos legales de Argentina. Solo mayores de 18." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    {esquemas.map((e) => <script type="application/ld+json" set:html={JSON.stringify({ "@context": "https://schema.org", ...e })} />)}
     <meta name="theme-color" content="#f6f6f2" />
     <script is:inline>
       // Aplica el tema elegido antes de pintar, para que no parpadee.

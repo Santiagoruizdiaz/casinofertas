@@ -11,13 +11,21 @@ const sinLinea = provincias.filter((p) => !lineas[p.id]);
 const tel = (t: string) => `tel:${t.replace(/\s*int\..*$/, "").replace(/[^\d+]/g, "")}`;
 const wa = (t: string) => `https://wa.me/549${t.replace(/\D/g, "")}`;
 const fecha = new Date(`${ayuda.revisado}T12:00:00`).toLocaleDateString("es-AR", { day: "numeric", month: "long", year: "numeric" });
+const schema = {
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Casinofertas", item: new URL("/", Astro.site).href },
+    { "@type": "ListItem", position: 2, name: "Juego responsable", item: new URL("/juego-responsable/", Astro.site).href },
+  ],
+};
 ---
 <Base
   title="Juego responsable | Casinofertas"
   description="Señales de alerta, consejos para jugar con control y líneas de ayuda gratuitas por juego problemático en cada provincia argentina."
   seccion="juego"
+  schema={schema}
 >
-  <h2>Juego responsable</h2>
+  <h1 class="titulo">Juego responsable</h1>
   <p class="lead">
     Las apuestas online son solo para mayores de 18. Jugar tiene que ser un entretenimiento con un costo que elegís de
     antemano, nunca una forma de ganar plata. Si dejó de ser eso, pedir ayuda es gratis y confidencial.
